@@ -1,0 +1,91 @@
+
+1) Python Abstract Class SAME as Interface
+
+- no COMPILE-TIME check for interface support
+- will do RUN-TIME FAILURE with unsupported attribute error if invoked interface method does NOT exist
+- use ABC .meta on BASE abstract class
+- customize overrides of base Collections
+
+http://stackoverflow.com/questions/6579671/duck-typing-and-java-interface-concept
+http://stackoverflow.com/questions/13646245/is-it-possible-to-make-abstract-classes-in-python
+
+Python 2.x:
+class MyClass(object): = new-style class
+class MyClass: = OLD-STYLE CLASS
+
+2) Python syntax for default BASE implicit,
+                             DERIVED override,
+                         and DIAMOND multiple inheritance
+
+https://learnpythonthehardway.org/book/ex44.html
+http://stackoverflow.com/questions/4015417/python-class-inherits-object
+
+from abc import ABCMeta, abstractmethod
+class AbstractAncestor:
+    __metaclass__ = ABCMeta
+
+    @abstractmethod
+    def overrideMe(self):
+        pass
+
+class Parent(abstractAncestor):
+
+    def altered(self):
+        print "PARENT ..."
+
+    def override(self):
+        ...
+
+class Child(parent):
+
+    def altered(self):
+        print "before"
+        # NOTE:  can use super()
+        super(Child, self).altered()
+        print "after"
+
+     def override(self):
+        ...
+
+# TODO:  need to pass in PARENT to Child ctor?
+dad = Parent()
+son = Child(dad)
+
+son.altered()
+
+3) Python Multiple Inheritance Resolution:  BOTTOM-UP, LEFT to RIGHT
+
+- https://www.programiz.com/python-programming/multiple-inheritance
+
+4) VS Scala traits
+
+TODO:  see if trait member vars can be accessed from enclosing class OUTSIDE of it
+       see if train member functions van access data from enclosing class itself.
+
+- no ctors
+- embed vertical-slice member data AND methods
+- can operate on main class member data as well as its own
+- use with Trait1 with Trait2 for (COMPOSITION-MIXIN) of functionality
+- does NOT affect inheritance/polymorphism of enclosing class primary SINGLE hierarchy
+- itself can do (STACKABLE) inheritance default to base when not implemented,
+                            override with derived when is implemented
+
+EXTENDs from first trait into next WITH
+ class Dog extends Animal with WaggingTail with FourLeggedAnimal {
+
+ trait Doubling extends IntQueue {
+      abstract override def put(x: Int) { super.put(2 * x) }
+    }
+
+***** OVERRIDE ORDER:  BOTTOM to TOP; RIGHT to LEFT -- LINEARIZATION eliminating duplicates,
+so SUPER() refers to whats EARLIER on this LINEARIZATION list!
+- http://alvinalexander.com/scala/scala-trait-examples
+- http://www.artima.com/pins1ed/traits.html#12.5
+
+The order of mixins is significant.[2] The precise rules are given in the following section, but, roughly speaking,
+traits further to the right take effect first. When you call a method on a class with mixins, the method in the trait furthest
+to the right is called first. If that method calls super, it invokes the method in the next trait to its left, and so on.
+In the previous example, Filtering's put is invoked first,
+so it removes integers that were negative to begin with. Incrementing's put is invoked second, so it adds one to those integers
+that remain.
+

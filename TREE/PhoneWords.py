@@ -72,6 +72,8 @@ import sys
 class PhoneWords:
 
     # ATTN:  IDENTIFY CONST INPUT DATA STRUCTURES
+    # ATTN:  NO DISTINCTION BTN PUBLIC-PRIVATE!
+    # http://stackoverflow.com/questions/1641219/does-python-have-private-variables-in-classes
     MAX_NUM_LENGTH = 3  # where currentDigit STARTs from 0
     MAX_WORD_LENGTH = 3
 
@@ -166,8 +168,8 @@ def main(args):
     foundValidWord = PhoneWords().generateWords(phoneNumber, currentDigit, accumWord)
 
 
-# TODO:  review this variable notation again!
 # ATTN:  main entrypoint, for Python to emulate Java main entrypoint
+# ATTN:  this only executes when file executes as a SCRIPT, not when it's imported!
 if __name__ == '__main__':
     # invocation of static class method
     # PhoneWords.main(sys.argv)

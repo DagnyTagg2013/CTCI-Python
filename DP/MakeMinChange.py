@@ -81,13 +81,13 @@ def processMinChange(amountToChange, coinValues):
 def main(args):
 
     # ATTN1:  String formatting for PYTHON DEFAULT ARG TYPE of STRING!
-    print("\n\nMAKING CHANGE FOR {0}!   Makes change from SECOND cmd-line argument if given.\n".format(args[1]))
-    amountToChange = int(args[1])
+    # print("\n\nMAKING CHANGE FOR {0}!   Makes change from SECOND cmd-line argument if given.\n".format(args[1]))
+    # amountToChange = int(args[1])
     # TODO:  validate only one numeric arg given!
 
     # ATTN:  Python Sorted List Usage, SQUARE brackets!
     coinValues = [1, 25, 5, 10]
-    # coinValues.sort(reverse=True)
+    # ATTN:  coin values!
     descendingCoinValues = sorted(coinValues, key = int, reverse = True)
     print "\nDescending Coin Values Are:  {0}\n".format(descendingCoinValues)
 
@@ -95,16 +95,17 @@ def main(args):
     # TEST 1:  SIMPLEST ONE-SET OF DATA TESTING CORE FUNCTION
     # TODO:  Comment out TEST DATA
     amountToChange = 15
+    print ("TEST 1\n")
     numCoins, remainder = getNumCoinsAndRemainder(amountToChange, coinValues[2])
     print("\nTEST 1:  EXACT CHANGE FOUND WITH REMAINDER:  {0}, {1}\n".format(numCoins, remainder))
 
     # TEST 2:  OUTER-LOOP TEST
     # TODO:  Comment out TEST DATA
     # amountToChange = 15
+    amountToChange = 45
     exactChange = processMinChange(amountToChange, descendingCoinValues)
-
     # ATTN:  print results in ORDER
-    print "***** EXACT CHANGE FOUND *****"
+    print "***** FINALIZED EXACT CHANGE FOUND *****"
     print "(in descending order by CoinValue: NumCoins)"
     # ATTN:  to early exit condition!
     print exactChange
