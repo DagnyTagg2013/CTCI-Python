@@ -119,7 +119,6 @@ class MatrixPathsWBlocks:
 
 if __name__ == '__main__':
 
-
     # opengrid = numpy.matrix([[1,1], [0,1]])
     opengrid = numpy.matrix([[1,1,1,1], [1,1,1,1], [1,1,1,1]])
     # TODO:  feed from readInput()

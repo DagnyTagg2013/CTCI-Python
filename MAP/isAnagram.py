@@ -37,10 +37,9 @@ def isAnagram(word1, word2):
 
     return code1 == code2
 
-
 # main script code here!
 
-# TEST 1:  anagrams
+# TEST 1: anagrams
 word1 = 'amp'
 word2 = 'pam'
 test1 = isAnagram(word1, word2)
@@ -52,7 +51,7 @@ word2 = "camp"
 test2 = isAnagram(word1, word2)
 print test2
 
-# TEST 3:  see entries
+# TEST 3: see entries
 code2 = normWordToCode(word2)
 keys = code2.keys()
 values = code2.values()

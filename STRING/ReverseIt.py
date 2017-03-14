@@ -1,3 +1,3 @@
 
 
-# TODO: Reverse String Mannually, and then vis Python SLICE
+# TODO: Reverse String Mannually, and VS Python SLICE which supports NEGATIVE index!

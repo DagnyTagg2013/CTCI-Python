@@ -23,7 +23,6 @@ def fibonacci(n):
         f0 = f1
         f1 = fib
 
-
     return fib
 
 # n = int(raw_input())
