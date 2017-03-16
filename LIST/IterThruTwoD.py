@@ -149,7 +149,10 @@ try:
     print iter.remove()
     iter.show()
 
+    # TODO:  handle HAS_NEXT case
+    #        via PEEK on pre-existing nextItem WITHOUT iteration with next
     """
+
         print iter.next()
 
         print iter.hasNext()

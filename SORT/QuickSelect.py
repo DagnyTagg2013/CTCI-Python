@@ -1,8 +1,11 @@
 
 # TODO:  test this in Python!
+
+# PROBLEM:  find Kth element in Undordered List
+
 # ATTN:
-# - QUICKSELECT or QUICKSORT in Python
-# https://en.wikipedia.org/wiki/Quickselect
+# - QUICKSELECT variation of One-Side or DEPTH BRANCH of Tree from QuickSort:  O(N)
+# - https://en.wikipedia.org/wiki/Quickselect
 
 """
  function partition(list, left, right, pivotIndex)
@@ -33,7 +36,11 @@
          return select(list, left, pivotIndex - 1, k)
      else
          return select(list, pivotIndex + 1, right, k)
-Note the resemblance to quicksort: just as the minimum-based selection algorithm is a partial selection sort, this is a partial quicksort, generating and partitioning only O(log n) of its O(n) partitions. This simple procedure has expected linear performance, and, like quicksort, has quite good performance in practice. It is also an in-place algorithm, requiring only constant memory overhead if tail-call optimization is available, or if eliminating the tail recursion with a loop:
+Note the resemblance to quicksort: just as the minimum-based selection algorithm is a partial selection sort,
+this is a partial quicksort, generating and partitioning only O(log n) of its O(n) partitions.
+This simple procedure has expected linear performance, and, like quicksort, has quite good performance in practice.
+It is also an in-place algorithm, requiring only constant memory overhead if tail-call optimization is available,
+or if eliminating the tail recursion with a loop:
 
  function select(list, left, right, k)
      loop

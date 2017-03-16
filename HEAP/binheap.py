@@ -24,14 +24,17 @@ COMPLEXITY:
          TAKE (num nodes at H) x (cost to percolate at H)
          => 2(N+1)
 
-
     - INSERT:  O(logN)
       O(logN) to insert one element
       add to END of array
-      PERCOLATE UP (SWAP with parent if it is LESS than parent; thus preserving heap property)
+      PERCOLATE UP via //2 > 0
+      SWAP with parent if it is LESS than parent; thus preserving heap property
 
     - DELETE:  O(logN)
-      REMOVE TOP (min); then SWAP in LAST leaf; and PERCOLATE DOWN (SWAP with CHILD if it is GREATER than child; thus preserving heap property)
+      REMOVE ROOT(min);
+      then SWAP LAST leaf to ROOT;
+      PERCOLATE DOWN via i*2 > currentSize, and take MinChild of i*2 or (i*2 + 1)
+      SWAP with MIN CHILD if it is GREATER than child; thus preserving heap property
 
     - SORT:  O(N)
       extract the ROOT O(1) x for N nodes:  so get ASCENDING ORDER for MIN-HEAP
@@ -68,8 +71,8 @@ class BinHeap:
     # external exception type
     INVALID_OP_FOR_EMPTY_MSG = "Cannot execute this operation on an Empty Heap"
 
-    # internal limit on CACHE for HELD items
-    _CACHE_LIMIT_PLUS_ONE = 11
+    # internal limit on CACHE for HELD items, but PLUS ONE is for 0th element with dummy value of 0
+    # _CACHE_LIMIT = 10
 
     def __init__(self):
         # 0th element is dummy placeholder with value 0
@@ -90,6 +93,7 @@ class BinHeap:
         # to move UP, but STOP once ROOT is reached; or just (prior) to 0th dummy element
         while i // 2 > 0:
             # IFF MIN HEAP property is violated; SWAP child with parent
+             # TODO:  INVERT this comparison for MAX-HEAP
             if self.heaplist[i] < self.heaplist[i//2]:
                 tmp = self.heaplist[i // 2]                 # save parent
                 self.heaplist[i // 2] = self.heaplist[i]    # put child in parent's place
@@ -101,11 +105,11 @@ class BinHeap:
         then percolates UP the new element to restore heap property
     """
     def insert(self, newValue):
-        # ATTENTION, test CACHE_LIMIT
-        if (self._CACHE_LIMIT_PLUS_ONE == len(self.heaplist)):
-            # EVICT MIN element, keeping CACHE number of MAX elements!
-            top = self.delMin()
-            print "Cache Eviction of element value:  {0}".format(top)
+        # ATTENTION, test CACHE_LIMIT; but move OUTSIDE this implementation via INHERITANCE-OVERRIDE!
+        # if ((self._CACHE_LIMIT + 1) == len(self.heaplist)):
+             # EVICT MIN element, keeping CACHE number of MAX elements!
+        #    top = self.delMin()
+        #    print "Cache Eviction of element value:  {0}".format(top)
         # THEN, append newValue
         self.heaplist.append(newValue)
         self.currentSize = self.currentSize + 1
@@ -115,9 +119,11 @@ class BinHeap:
     def __findMinChildIdx__(self, i):
     # in the case where we are at the last leaves of the tree; and
     # there is no right child existing; just take the last left child
+    # ATTN:  CHECK BOUND for RIGHT CHILD!
         if (i * 2 + 1) > self.currentSize:
             return i * 2
         else:
+        # TODO:  INVERT this comparison for MAX-HEAP
         # otherwise, there are two children; and we want to pick the smaller one
             if (self.heaplist[i*2] < self.heaplist[i*2 + 1]):
                 return i * 2
@@ -129,7 +135,9 @@ class BinHeap:
     def __percDown__(self, i):
         # move DOWN, but STOP once LAST LEAF is reached; or AT the currentSize of the Heap!
         while (i * 2) <= self.currentSize:
+            # ATTN:  on perc DOWN, need to swap with minChild!
             minChildIdx = self.__findMinChildIdx__(i)
+            # TODO:  INVERT this comparison for MAX HEAP
             # IFF MIN HEAP property is violated; SWAP parent with child
             if self.heaplist[i] > self.heaplist[minChildIdx]:
                 tmp = self.heaplist[i]
@@ -179,12 +187,16 @@ class BinHeap:
         # START scanning nodes to move, exactly ONE level above bottom leaf level;
         # since we're going to Percolate Down the results!
         i = len(alist) // 2
-        # initializes heaplist with 0th dummy element, and ALL items in input list UP TO CACHE_LIMIT!
-        # self.heaplist = [0] + alist[:]
-        numToCopy = len(alist)
-        if (len(alist) >= self._CACHE_LIMIT_PLUS_ONE):
-            numToCopy = self._CACHE_LIMIT_PLUS_ONE
-        self.heaplist = [0] + alist[0:numToCopy]
+        # initializes heaplist with 0th dummy element, and ALL items in input list
+        self.heaplist = [0] + alist[:]
+
+
+        # ATTN:  handle CACHING EXTERNAL to this implementation!
+        # numToCopy = len(alist)
+        # if (numToCopy >= self._CACHE_LIMIT:
+        #    numToCopy = self._CACHE_LIMIT
+        # self.heaplist = [0] + alist[0:numToCopy]
+
         # NOW HEAPIFY by MOVing from ONE LEVEL ABOVE LEAVES
         # UP to ROOT
         while (i > 0):
@@ -254,7 +266,6 @@ def main(args):
         print "Popped top with value of:  {0}".format(top)
     finally:
         print "This concludes testing for the EMPTY HEAP case!"
-
 
 
 # NOTE:  use the following to permit in-module unit-testing!

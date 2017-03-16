@@ -6,6 +6,7 @@
 # http://stackoverflow.com/questions/176011/python-list-vs-array-when-to-use
 # https://bradfieldcs.com/algos/analysis/performance-of-python-types/
 # http://infoheap.com/python-initialize-list-with-same-value/
+# ATTN:  Python --- favor xrange over range!
 
 def rCountSkipPaths(hops, cache):
 
