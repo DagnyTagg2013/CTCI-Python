@@ -1,0 +1,19 @@
+
+1) TAIL recursion on LAST statement prior to RETURN is OK as compiler optimizes it to loop.
+   => EXIT condition is put as head of LOOP iteration
+   => NARROWING conditions on each recursive stack call are modified/updated at END of each LOOP iteration
+   (LOOK AT DP folder!)
+
+2) multi-branch recursion; is like multi-branch tree which results in O(exp N) leaves => SUPERBAD O(expN)
+
+3) TREEs, or SORTs, or ELIFs which NARROW dataset on each recursive call are OK, as they go => O(logN)
+
+4) Recursion with memo-table or check call prior to invoking sub-recursion is optimized
+
+5) CONVERSIONs:
+
+* Recursion on count paths/Matrix from ENDPOINT; BACK to exit at origin
+=> convert to memo-table starting with INITIALIZED matrix of results at 0th row, column;
+   then REUSING prior adjacency cells to feed into CURRENT cell
+
+* TAIL recursion conversions (see (1) above)
