@@ -5,17 +5,17 @@
 # - FOUND THIS on Dynamic-Programming to avoid EXPONENTIAL TIME COMPLEXITY EXPLOSION OF RECURSIVE approach:
 #   http://www.geeksforgeeks.org/count-possible-paths-top-left-bottom-right-nxm-matrix/
 # - ALGO
-# - num paths to each cell from origin is calculated by SUM of num path R$OM adjacent cells
+# - num paths to each cell from origin is calculated by SUM of num path FROM adjacent cells LEFT and ABOVE
 # - SO CACHE pathcounts, building INCREMENTALLY; initialize 1st row, 1st col to 1's -- only ONE path to get to ORIGIN
 # - This SEED from 1st row and column count of 1 are used to calculate the TARGET CELL numpaths as the SUM of ways to get FROM ADJACENT cells
 #
 import sys
 import numpy
-import copy
+# import copy
 import traceback
 
 """
-SUPER-BAD EXPONENTIAL COMPLEXITY
+DEPRECATED RECURSIVE IMPLEMENTATION:  (recurse from FAR end of GRID, and TERMINATE at ORIGIN)  SUPER-BAD EXPONENTIAL COMPLEXITY
 
 // Returns count of possible paths to reach cell at row number m and column
 // number n from the topmost leftmost cell (cell at 1, 1)

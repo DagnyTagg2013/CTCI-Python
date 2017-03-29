@@ -3,13 +3,14 @@ import logging
 # Iterative Binary Search
 # - deconstructed to WHILE loop; updating EITHER end or start to midIdx
 # - DEFAULT foundIdx to -1
+# ATTN:  distinction between
 def binSearch(toFind, data, startIdx, endIdx):
 
     foundIdx = -1
 
     # ATTN:  EMPTY is special case
     if (data is None) or (len(data) == 0):
-        return foundIdx
+        raise
 
     # ATTN:  use DELTA/2
     midIdx = startIdx + (endIdx - startIdx)/2
