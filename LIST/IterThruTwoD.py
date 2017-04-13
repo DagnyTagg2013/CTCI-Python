@@ -14,6 +14,31 @@
 # APPROACH:
 #
 # BRAINSTORM -- CORE of what's important!
+# - ITERATION over SELF-MODIFYING DATA is DUMB:
+#
+"""
+MAJOR TODO ISSUE:
+
+You need to take a copy of the list and iterate over it first, or the iteration will fail with what may be unexpected results.
+http://stackoverflow.com/questions/1207406/remove-items-from-a-list-while-iterating
+
+For example (depends on what type of list):
+
+for tup in somelist[:]:
+    etc....
+An example:
+>>> somelist = range(10)
+>>> for x in somelist:
+...     somelist.remove(x)
+>>> somelist
+[1, 3, 5, 7, 9]
+
+>>> somelist = range(10)
+>>> for x in somelist[:]:
+...     somelist.remove(x)
+>>> somelist
+[]
+"""
 #
 # ITERATOR
 # - store original data structure

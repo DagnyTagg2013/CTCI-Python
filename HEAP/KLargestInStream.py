@@ -4,34 +4,33 @@
 # QUESTIONS:
 # - K is small or large
 # - N is small or large
-# - want LARGEST K or SMALLEST K
+# - want to cache LARGEST K or SMALLEST K from LARGE N in stream where K is a relative SMALL number
 
-# SIMPLE SOLUTION 1: ARRAY (K is small)
+# SIMPLE SOLUTION 1: ARRAY (K is small, N is small)
 # - ARRAY of K elements
 # - find MIN:  O(K)
-# - ATTN:  HOLD SMALLEST!
-# - for NEW element X, compare to MIN and if GREATER, SWAP out MIN with NEW element
+# - ATTN:  HOLD LARGEST
+# - for (each) NEW element X, compare to MIN and if its GREATER, SWAP out MIN with NEW element
 # - LOOP
 # - COMPLEXITY:  O (N x K)
 # *** NOTE: for K is 1:  its ENOUGH to cache SINGLE MIN
 #
 #
-# SOLUTION 2:  MIN HEAP
-# - K is larger
-# - MIN Heap
-# - NEW element X in stream; compare to MIN:  O(N)
+# SOLUTION 2:  MIN HEAP for K LARGEST elements, or MAX HEAP for K SMALLEST elements
+# - MIN Heap (N is large, K is small)
+# - for (each) NEW element X in stream; compare to MIN:  O(N)
 #   if LARGER; remove MIN, and INSERT new element O(log K)
-# - at any time, have got K elements in heap which are LARGER than CURRENT
+# - at any time, have got K elements in heap which are LARGEST
 # COMPLEXITY:  O (N log K)
 # where N is num elements encountered,
 # and K is num elements cached on heap
 
 # ALGO:
 # - http://stackoverflow.com/questions/30914801/optimal-algorithm-to-return-largest-k-elements-from-an-array-of-infinite-number
-# PYTHON SORT:
+# => PYTHON SORT:
 # - mergesort used by default
 # - can customize with fields/tuples for comparison with cmp function passed in
-# PYTHON MODULEs vs PACKAGE:
+# => PYTHON MODULEs vs PACKAGE:
 # - <filename>.py has <filename> as MODULE to import
 # - __init__.py empty file designates the file directory name as PACKAGE to import
 
@@ -121,14 +120,14 @@ for newItem in inputStream:
 
 
 # TODO implement heap-based cache here!
-# - Q:  need to REVISE heap to INHERIT from AbstractAncestor?
+# - Q:  need to REVISE binheap to INHERIT from AbstractAncestor?
 # - Q:  NO typecheck on CTOR, but take variable of specified class type?
 # - Q:  annotations for override?
 # - revise init, insert, buildHeap
 
 # TODO implement max-heap here!
 # - Q:  need to allow override of comparison function
-# - revise percUp, percDown
+# - revise percUp, percDown, findMinChild
 """
 class HeapCache(binheap):
 

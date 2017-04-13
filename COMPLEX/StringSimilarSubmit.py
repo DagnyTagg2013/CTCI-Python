@@ -14,9 +14,10 @@ def calcSimilarities(testString):
                 #ATTN:  this breaks out of ALL loop-levels for some reason
                 break
         # CASE 1: FIRST CHAR MISMATCH
-        # - Exit when first non-match char reached AT 0th char; set similarity to 0
+        # - Exit when first non-match char reached at 0th char; set similarity to 0
         # CASE 2: PARTIAL SUFFIX MATCH
-        # - Exit when first NON-MATCH char reached; set similarity to matchIndex, or 1+ for 0-based last actually matching index on prior char at currIdx - 1
+        # - Exit when first NON-MATCH char reached; set similarity to matchIndex,
+        # or 1+ for 0-based last actually matching index on prior char at currIdx - 1
         # CASE 3: FULL SUFFIX MATCH
         # - Exit when FULL LENGTH of suffix matched; set similarity to matchIndex + 1, for actual LENGTH of 0-indexed strings
         if (matchIndex == 0) and (testString[0] != currentSuffix[0]):

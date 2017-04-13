@@ -68,6 +68,7 @@ def buildTree(data):
             rootAccumEdges = newParent
         rootAccumEdges.addChild(edge[1])
 
+        # ATTN:  passes DEFAULT value, otherwise KeyError if not found!
         subRootAccumEdges = accumMap.get(edge[1], None)
         if (subRootAccumEdges is None):
             # NOTE:  set PARENT from above

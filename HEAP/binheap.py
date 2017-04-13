@@ -177,7 +177,7 @@ class BinHeap:
         BUILDs a heap on THIS object; so OVERWRITEs any pre-existing one!
         - from an input List of items
         - such that MIN Heap property holds
-        - starts at level JUST ABOVE the leaves; or HALWAY through the full binary tree!
+        - starts at level JUST ABOVE the leaves; or HALFWAY through the full binary tree!
           then STOPs at the ROOT
         - percolates the value DOWN; WITHOUT LOSING original position
           then proceeds to next item

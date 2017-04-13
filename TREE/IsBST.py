@@ -65,4 +65,4 @@ def check_binary_search_tree_(root):
 
     return rIsBST(root, -(sys.maxint - 1), sys.maxint)
 
-# TODO:  need to construct tree to test against; but this is in STUBBED code somwhere!
+# TODO:  need to construct tree to test against; but this is in STUBBED code somewhere!

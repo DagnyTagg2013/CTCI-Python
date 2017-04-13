@@ -239,7 +239,7 @@ class BST:
 
         maxDataIdx = len(data) - 1
 
-        # ATTN:  nested sub-helper function in function which uses data from ENLOSING fucntion!
+        # ATTN:  nested sub-helper function in function which uses data from ENLOSING function!
         def rdeserialize(scanIndex):
 
             # CASE1:  handle the None case, increment scan pointer
