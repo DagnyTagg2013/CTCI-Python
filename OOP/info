@@ -1,4 +1,5 @@
 
+
 1) Python Abstract Class SAME as Interface
 
 - no COMPILE-TIME check for interface support
@@ -13,6 +14,8 @@ Python 2.x:
 class MyClass(object): = new-style class
 class MyClass: = OLD-STYLE CLASS
 
+
+***** BIG TIME TODO: customize binheap with comparator for this! *****
 2) Python syntax for default BASE implicit,
                              DERIVED override,
                          and DIAMOND multiple inheritance

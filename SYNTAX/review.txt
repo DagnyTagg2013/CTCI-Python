@@ -1,0 +1,64 @@
+
+
+1) Python Dict, List, Iterable Functions, Deque, Yield
+
+* LIST: mutable, homogeneous
+http://stackoverflow.com/questions/1708510/python-list-vs-tuple-when-to-use-each
+https://docs.python.org/2/tutorial/datastructures.html
+for i in xrange(start, end, step):
+
+* TUPLE: immutable, heterogeneous
+
+atuple[0], atuple[1]
+use as RETURN of multiple args from def someFunction():
+
+* DICT:
+https://docs.python.org/2/tutorial/datastructures.html
+
+* FUNCTIONS on ITERABLE:
+https://docs.python.org/2/library/functions.html#map
+
+* DEQUE:
+https://docs.python.org/2/library/collections.html#collections.deque
+- double-link makes REMOVE faster as no prior-pointer tracking needed
+- for STACK:  .append() right; pop() right; SAME SIDE
+- for QUEUE:  .append() right; popleft() left; DIFFERENT SIDE
+
+* YIELD vs GENERATORS
+http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python
+
+2) EXAMPLES:
+
+* STRINGS/SLICE:
+GOTCHA:  [startIdx:beyondEndIdx by 1!]
+- StringSimilarSuffix
+
+* DICT/MAP and LIST:
+GOTCHA:
+- map is functional construct on Iterable
+.get(key,defaultVal) or KeyError if key not found
+- BuildTree
+
+* MATRIX:
+- Spiraller
+
+* TREE:
+- BST
+
+* HEAP/ARRAY:
+- binheap
+
+3) RANDOM
+
+* elif
+https://www.tutorialspoint.com/python/python_if_else.htm
+* use __init__() for ctor; and (self, ...) for def class
+* None
+* pass (no-op)
+* no accessors, use __ instead
+* switch SUCKs, need simulation w Dictionary lambdas
+* collections SUCK, need third-party PriorityQueue, Heap
+
+4) OOP
+
+* lookup notes in that folder!

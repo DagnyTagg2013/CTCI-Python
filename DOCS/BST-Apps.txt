@@ -1,0 +1,11 @@
+
+1) BSTs, Balancing, Apps
+
+http://stackoverflow.com/questions/2130416/what-are-the-applications-of-binary-trees
+
+2) Tree Traversals
+http://stackoverflow.com/questions/10117136/traversing-a-binary-tree-recursively
+http://stackoverflow.com/questions/4547012/complexities-of-binary-tree-traversals
+
+3) Tree Deletions
+http://stackoverflow.com/questions/4582251/what-is-the-time-complexity-of-deleting-a-node-in-a-binary-tree

@@ -17,10 +17,13 @@
 # - ITERATION over SELF-MODIFYING DATA is DUMB:
 #
 """
-MAJOR TODO ISSUE:
+******
+MAJOR TODO ISSUE!
 
 You need to take a copy of the list and iterate over it first, or the iteration will fail with what may be unexpected results.
 http://stackoverflow.com/questions/1207406/remove-items-from-a-list-while-iterating
+
+http://stackoverflow.com/questions/2612802/how-to-clone-or-copy-a-list
 
 For example (depends on what type of list):
 

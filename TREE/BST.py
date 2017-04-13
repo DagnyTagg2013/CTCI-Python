@@ -180,6 +180,9 @@ class BST:
     # ATTN: what's in stack at any time is NEXT in DEFTH-FIRST PRE-ORDER traversal!
     def dfs(self):
 
+        #  **********
+        #  MAJOR TODO:  FIFO from SAME-SIDE, most efficient on RIGHT side NOT LEFT!
+
         stack = deque()
         # ATTN:  appendLeft is equivalent to PUSH onto stack!
         #        need to START with HEAD!
@@ -229,7 +232,7 @@ class BST:
 
         return serialized
 
-    # ATTN0:  DESERIALIZE using POST-ORDER: LEFT, RIGHT, ROOT
+    # ATTN0:  DESERIALIZE using PRE-ORDER: ROOT (save), LEFT, RIGHT, (reconstruct on ROOT)
     # - since have to NAV down before enough info to get subtrees to attache to root
     # ATTN1:  need to specify class static method as instance not created yet!
     # ATTN2:  need to create instance by invoking class CTOR!
@@ -239,7 +242,7 @@ class BST:
 
         maxDataIdx = len(data) - 1
 
-        # ATTN:  nested sub-helper function in function which uses data from ENLOSING function!
+        # ATTN:  nested sub-helper function in function which uses data from ENCLOSING function!
         def rdeserialize(scanIndex):
 
             # CASE1:  handle the None case, increment scan pointer
