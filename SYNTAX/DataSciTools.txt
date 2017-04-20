@@ -1,0 +1,44 @@
+
+1) http://jupyter.readthedocs.org/en/latest/install.html
+
+0) Links for Anaconda with IPython Notebook;
+   and how to use Python csv, and NumPy libraries
+   to train prediction model of survival/not from features of each passenger
+   by gender, class as an ARRAY structure on parsed string input line components
+
+0.1) opening ipython from click on ~/anaconda launch.app
+0.2) quickstart:
+https://store.continuum.io/static/img/Anaconda-Quickstart.pdf
+0.3) opening files and saving
+http://stackoverflow.com/questions/21034373/how-to-load-edit-run-save-text-files-py-into-an-ipython-notebook-cell
+0.4) ipython wiki
+http://ipython.org/ipython-doc/stable/notebook/index.html
+
+1) Links to Pandas libraries for use with IPython Notebook;
+   and how to use TYPED DataFrame to FILL missing data,
+   convert inputs to numeric representations,
+   and/or remove nulls; then to convert BACK to NumPy ARRAY
+
+   - NOTE:  handles LIMITATIONS of NumPy where if you try to convert strings to
+   specific types like floats, you'll get errors on null/missing values
+
+   ALSO does histogram graphs, and stats tables to help with experimentation
+ on new feature creation from pre-existing features!
+
+1.1) http://pandas.pydata.org/pandas-docs/stable/10min.html
+
+2) Links to sklearn library for use with IPython Notebook;
+   which assumes inputs are ALL numeric, and with filled null values,
+   all within a NumPy ARRAY structure
+
+   - allows you to pass in parameters for model-training e.g. number of trees to train
+   in a Bootstrap/Bagging Decision Tree Ensemble
+   - allows you to then TRAIN the model to FIT the training data
+   - allows you to run trained model to PREDICT results on test data
+
+2.1) http://scikit-learn.org/dev/modules/generated/sklearn.ensemble.RandomForestClassifier.html
+
+3) Getting Started Tutorials
+
+https://www.kaggle.com/c/titanic#tutorials
+
