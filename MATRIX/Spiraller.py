@@ -121,9 +121,9 @@ class Spiraller():
                           }
 
             # TRICKY:  get() actually executes the SWITCH to the LAMBDA programmatic action,
-            # then you have to do () to EXECUTE the actual ACTION
-            calcNextMove = moveOptions.get(direction)
-            (nextRow, nextCol) = calcNextMove()
+            # note then you have to do () to EXECUTE the actual ACTION
+            # calcNextMove = moveOptions.get(direction)
+            (nextRow, nextCol) = moveOptions.get(direction)()
 
             # ATTN: TEST BOUNDARY, and THROW EXCEPTION!
             # ATTN;  TEST VISITED, and THROW EXCEPTION!

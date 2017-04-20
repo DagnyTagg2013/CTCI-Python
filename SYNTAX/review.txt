@@ -6,6 +6,13 @@
 http://stackoverflow.com/questions/1708510/python-list-vs-tuple-when-to-use-each
 https://docs.python.org/2/tutorial/datastructures.html
 for i in xrange(start, end, step):
+for i in xrange(MAX_LEN):
+
+GOTCHAs:
+- step can be -1 to go BACK
+- xrange generates on-the-fly vs pre-allocation
+- MAX_LEN only means index 0 to MAX_LEN-1
+- end is end index specifically
 
 * TUPLE: immutable, heterogeneous
 
@@ -39,6 +46,9 @@ GOTCHA:
 .get(key,defaultVal) or KeyError if key not found
 - BuildTree
 
+* LIST COMPREHENSIONS, TUPLES:
+- FindRectangles
+
 * MATRIX:
 - Spiraller
 
@@ -48,6 +58,17 @@ GOTCHA:
 * HEAP/ARRAY:
 - binheap
 
+* GRAPH:
+- djikstra
+
+* INSPECTION:
+http://stackoverflow.com/questions/1006169/how-do-i-look-inside-a-python-object
+- djikstra
+
+* EXCEPTIONS:
+http://stackoverflow.com/questions/9555133/e-printstacktrace-equivalent-in-python
+- djikstra
+
 3) RANDOM
 
 * elif
@@ -56,9 +77,19 @@ https://www.tutorialspoint.com/python/python_if_else.htm
 * None
 * pass (no-op)
 * no accessors, use __ instead
-* switch SUCKs, need simulation w Dictionary lambdas
-* collections SUCK, need third-party PriorityQueue, Heap
 
-4) OOP
+4) SUCKY LANGUAGE FEATURES, need HELP with
+
+* switch SUCKs, need simulation w Dictionary lambdas
+https://codingair.wordpress.com/2014/02/11/use-python-to-do-switch-case/
+
+* collections SUCK, need third-party PriorityQueue, Heap, Graph, Vertex
+https://pypi.python.org/pypi/pythonds
+
+5) OOP
 
 * lookup notes in that folder!
+
+6) INTROSPETION OF LIBRARY CLASS
+
+* http://stackoverflow.com/questions/1006169/how-do-i-look-inside-a-python-object
