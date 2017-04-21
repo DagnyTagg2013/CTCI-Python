@@ -1,7 +1,9 @@
 __author__ = 'dagny t'
 
 
-# TODO: CAN TWEAK to do MOST RECENTLY ACCESSED via timestamp updates!
+# TODO: CAN TWEAK this to handle MOST (RECENTLY) ACCESSED via timestamp prioritization!
+# NOTE: cannot BYPASS SORT, as HIGHEST frequency counts may DIFFER from LAST REQUENCY count update, thus Ordering needs to be reassessed EACH time data is
+# WRITTEN!
 
 # Implement MOST FREQUENTLY USED  (Prioritize by COUNT of Accesses)
 # KEY DATA STRUCTURES:  Priority Node by NumHits,
