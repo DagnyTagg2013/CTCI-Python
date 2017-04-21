@@ -31,7 +31,7 @@ def dijkstra(aGraph, originPt):
         # ATTN:  this just CONSUMEs next nearest point; SHRINKING unVisited points set!
         #nextNearestPt = unvisitedPriorityQ[0]
         nextNearestPt = unvisitedPriorityQ.delMin()
-        # TODO DEBUG:  need to find out why 0th point of internal heapArray not removed and set to nextNearestPt by Distance of 0!
+        # TODO DEBUG:  need to find out why 0th point of internal heapArray is not removed; and returned as nextNearestPt
         for adjacentPt in nextNearestPt.getConnections():
             # ATTN:  *.getWeight() gets weight on EDGE between points
             #        *.getDistance() gets CUMULATIVE distance from Origin TO point
@@ -50,8 +50,7 @@ def dijkstra(aGraph, originPt):
 
 def main(args):
 
-    # TODO:  add proper TESTs to initialize Graph and Vertex with example from GeeksForGeeks!
-    x = 1
+    # TODO:  add proper TESTs to initialize Graph and Vertex with graph example from GeeksForGeeks!
 
     # print type(Graph)
     # print dir(Graph)

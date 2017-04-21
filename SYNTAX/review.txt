@@ -25,6 +25,10 @@ https://docs.python.org/2/tutorial/datastructures.html
 * FUNCTIONS on ITERABLE:
 https://docs.python.org/2/library/functions.html#map
 
+* COLLECTIONS and COMPARABLE:
+http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
+http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
+
 * DEQUE:
 https://docs.python.org/2/library/collections.html#collections.deque
 - double-link makes REMOVE faster as no prior-pointer tracking needed
@@ -33,6 +37,39 @@ https://docs.python.org/2/library/collections.html#collections.deque
 
 * YIELD vs GENERATORS
 http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python
+
+* CONCURRENCY
+https://pymotw.com/2/Queue/
+https://www.troyfawkes.com/learn-python-multithreading-queues-basics/
+
+* COMPARATORS
+GOTCHA:  DataItem class implements Comparator<Data> and int compareTo(DataItem other)
+         on PriorityQueue<DataItem>
+
+         HOWEVER, if number of fields considered for comparison differs from equals or hashcode;
+         then implement Comparator function on DataItem and pass that into PriorityQueue
+
+http://javaconceptoftheday.com/java-priorityqueue-example/
+http://stackoverflow.com/questions/4011560/priority-queue-in-java
+http://stackoverflow.com/questions/1168348/java-serialization-readobject-vs-readresolve
+http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
+
+* COLLECTIONS (challenges)
+https://docs.python.org/2/library/collections.html
+http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
+http://javaconceptoftheday.com/java-priorityqueue-example/
+http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
+http://stackoverflow.com/questions/407734/a-generic-priority-queue-for-python
+https://docs.python.org/2.7/library/queue.html#Queue.PriorityQueue
+https://docs.python.org/3/_sources/library/heapq.
+
+# SORT (LIST works OK for BASICs, otherwise not prettiest
+# LIMITATION - has to be primitive integer ordering key
+http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/
+
+# IERATORS
+itertools
+http://stackoverflow.com/questions/17722989/python-how-do-i-use-itertools
 
 2) EXAMPLES:
 
@@ -114,13 +151,16 @@ https://www.tutorialspoint.com/python/python_if_else.htm
 * pass (no-op)
 * no accessors, use __ instead
 
-4) SUCKY LANGUAGE FEATURES, need HELP with
+4) SUCKY LANGUAGE FEATURES; I need HELP with
 
 * switch SUCKs, need simulation w Dictionary lambdas
 https://codingair.wordpress.com/2014/02/11/use-python-to-do-switch-case/
 
 * collections SUCK, need third-party PriorityQueue, Heap, Graph, Vertex
 https://pypi.python.org/pypi/pythonds
+
+* sorting collections SUCK a bit:
+http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/
 
 5) OOP
 
