@@ -1,7 +1,13 @@
 __author__ = 'dagny t'
 
-# Implement MOST FREQUENTLY USED  (Prioritize by COUNT of Accesses)
 
+# TODO: CAN TWEAK to do MOST RECENTLY ACCESSED via timestamp updates!
+
+# Implement MOST FREQUENTLY USED  (Prioritize by COUNT of Accesses)
+# KEY DATA STRUCTURES:  Priority Node by NumHits,
+#                       Dictionary cache by URL to full Node to quickly update NumHits,
+#                       Queue ordered with Most Frequent at FRONT, and Least Frequent NEW values at END to allow for easy eviction
+# KEY ALGO:  need to update priority and SORTED POSITIOn in queue EACH time collection changes sohmehow
 # TODO:  use deque collection! with MOST FREQUENT ACCESSED on one side, LEAST FREQUENT ACCESSED on ANOTHER
 # - https://docs.python.org/2/library/collections.html#collections.deque
 # TODO:  OR use Priority Queue collection => this reduces time to FIND LEAST frequently used, as based on HEAP!
@@ -122,7 +128,7 @@ class MostFrequentlyUsedCache:
                 self.freqPriorityQ.append(newNode)
                 self.lookupCache[newNode.url] = newNode
 
-
+# ATTN:  no PUT operation; as GET drives all DEEP-FETCHES of remote Page data!
 
 # TESTING SCRIPT:
 # - NOTE:  can use EITHER __cmp__ OR getKey methods to OVERRIDE; BUT __cmp__
