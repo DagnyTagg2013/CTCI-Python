@@ -12,7 +12,7 @@ GOTCHAs:
 - step can be -1 to go BACK
 - xrange generates on-the-fly vs pre-allocation
 - MAX_LEN only means index 0 to MAX_LEN-1
-- end is end index specifically
+- end is ONE-PAST end index specifically
 
 * TUPLE: immutable, heterogeneous
 
@@ -53,6 +53,7 @@ http://javaconceptoftheday.com/java-priorityqueue-example/
 http://stackoverflow.com/questions/4011560/priority-queue-in-java
 http://stackoverflow.com/questions/1168348/java-serialization-readobject-vs-readresolve
 http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
+- see MFACache.py
 
 * COLLECTIONS (challenges)
 https://docs.python.org/2/library/collections.html
