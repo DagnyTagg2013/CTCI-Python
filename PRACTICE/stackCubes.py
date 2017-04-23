@@ -19,6 +19,10 @@ def buildTowerVolumeFromMemo(towerBelowVol, buildLevel):
     print "Building Tower from Memo with Memo:{}, current Level:{} = Total:{}".format(towerBelowVol, levelVol, towerVol)
     return towerVol
 
+result = find_nb(1071225)
+print "Found best-guess n is:  {}".format(result)
+
+# EXPERIMENTAL testcript code!
 """
 def getStackVolume(n):
     towerVol = 0
@@ -34,6 +38,3 @@ def getStackVolume(n):
 # TESTING!
 print getStackVolume(3)
 """
-
-result = find_nb(1071225)
-print "Found best-guess n is:  {}".format(result)
