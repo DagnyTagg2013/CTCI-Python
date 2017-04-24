@@ -181,25 +181,25 @@ class BST:
     def dfs(self):
 
         #  **********
-        #  MAJOR TODO:  FIFO from SAME-SIDE, most efficient on RIGHT side NOT LEFT!
+        #  ATTN:  FIFO from SAME-SIDE, and most efficient on RIGHT side NOT LEFT!
 
         stack = deque()
         # ATTN:  appendLeft is equivalent to PUSH onto stack!
         #        need to START with HEAD!
-        stack.appendleft(self.head)
+        stack.append(self.head)
         currNode = self.head
 
         # ATTN:  REMOVE node first to process; then add its LEFT, RIGHT to Q!
         while (stack):
 
-            currNode = stack.popleft()
+            currNode = stack.pop()
             print "{0:1}, ".format(currNode.key, currNode.value)
 
             if (currNode.left is not None):
-                stack.appendleft(currNode.left)
+                stack.append(currNode.left)
 
             if (currNode.right is not None):
-                stack.appendleft(currNode.right)
+                stack.append(currNode.right)
 
     # ATTN:  PUBLIC, non-recursive call with HEAD!
     def serialize(self, sentinel = '#'):

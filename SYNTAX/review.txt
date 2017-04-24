@@ -192,9 +192,9 @@ http://stackoverflow.com/questions/8380006/file-open-function-with-try-except-py
 * elif
 https://www.tutorialspoint.com/python/python_if_else.htm
 * use __init__() for ctor; and (self, ...) for def class
-* None
+* None instead of Null
 * pass (no-op)
-* no accessors, use __ instead
+
 
 4) SUCKY LANGUAGE FEATURES; I need HELP with
 
@@ -208,6 +208,10 @@ https://pypi.python.org/pypi/pythonds
 http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/
 
 5) OOP
+
+- no accessors, use __ instead
+- no implicit this, use EXPLICIT this
+- no ctor, use __init__ and start assigning stuff to this.itemA to inititialize
 
 - http://sthurlow.com/python/lesson08/
 
