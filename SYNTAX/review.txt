@@ -176,7 +176,6 @@ http://stackoverflow.com/questions/1006169/how-do-i-look-inside-a-python-object
 
 * EXCEPTIONS:
 http://stackoverflow.com/questions/9555133/e-printstacktrace-equivalent-in-python
-- djikstra
 - binheap
 
 * STDIO:
@@ -207,6 +206,7 @@ https://pypi.python.org/pypi/pythonds
 
 * sorting collections SUCK a bit:
 http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/
+- /QUEUE/MFACache
 
 5) OOP
 
@@ -231,7 +231,7 @@ http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python
 
 * https://www.youtube.com/watch?v=NfngrdLv9ZQ#t=1716
 
-8) DP 
+8) DP
 
 - go thru ALL of the DP folder examples!
 
