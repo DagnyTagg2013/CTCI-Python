@@ -5,6 +5,12 @@ https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-in
 
 TODO:
 
+=> Python PriorityQ Support for Heaps here:
+- http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
+??? - parameterization comparison for complex item contents with __cmp__() method on ITem
+    - can OVERRIDE with tuples having an INTEGER FIRST with overriding integer priority, as Tuple comparison has first element
+      take priority!
+
 => Python Default Support for Heaps here:
 - https://docs.python.org/2/library/queue.html
 ??? but SYNCHRONIZED, slower access on single, thread
@@ -14,13 +20,13 @@ function as in Java Collections!
 => using heapq from above for MinHeap
 http://quiz.geeksforgeeks.org/binary-heap/
 
-=> Python PriorityQ Support for Heaps here:
-- http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
-??? but NO parameterization of comparison for complex item contents
-    AND can OVERRIDE with tuples having an INTEGER FIRST integer priority
+
+==> GENERIC CMP method in ITEM
 Sample C - class objects using __cmp__()
 Python isn't strongly typed, so we can save anything we like: just as we stored a tuple of (priority,thing)
 in previous section. We can also store class objects if we override __cmp__() method:
+
+==>
 
 
 => CONVERT min to MAX heap
