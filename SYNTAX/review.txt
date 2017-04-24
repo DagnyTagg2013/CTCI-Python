@@ -177,6 +177,7 @@ http://stackoverflow.com/questions/1006169/how-do-i-look-inside-a-python-object
 * EXCEPTIONS:
 http://stackoverflow.com/questions/9555133/e-printstacktrace-equivalent-in-python
 - djikstra
+- binheap
 
 * STDIO:
 - CountMatrixPathsDP
@@ -229,3 +230,9 @@ http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python
 7) WHAT's GOOD with PYTHON
 
 * https://www.youtube.com/watch?v=NfngrdLv9ZQ#t=1716
+
+8) DP 
+
+- go thru ALL of the DP folder examples!
+
+- stackCubes.py, sumIntegers.py, MakeMinChange.py etc

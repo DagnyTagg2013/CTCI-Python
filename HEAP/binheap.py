@@ -3,7 +3,18 @@
 HEAP PROPERTY:  (MIN)
     - for each node X with parent P;
     the key in P is smaller or equal to key in X
-    - CAREFUL, this is not the same as INORDER; so LEFT and RIGHT child may have ANY relationship with EACH OTHER
+    - for any given node X, BOTH children are larger, but we don't know RELATIVE comparisons between children
+    - CAREFUL, this is not the same as Sorted INORDER Tree; so LEFT and RIGHT child may have ANY relationship with EACH OTHER
+
+COMPLETE BINARY TREE REPRESENTATION serialized into Array: (enables logarithmic performance)
+    - full tree; each level below root has two children, EXCEPT for leaf nodes
+    - representation in random-access sequential storage
+    - None @ index 0 in array (makes index MATH convenient to derive Parent/Child, as below)
+    - ROOT @ index 1 in array
+    - any element @ index N
+    - parent @ index N/2
+    - left child @ 2N
+    - right child @ 2N + 1
 
 COMPLEXITY:
 
@@ -38,6 +49,7 @@ COMPLEXITY:
 
     - SORT:  O(N)
       extract the ROOT O(1) x for N nodes:  so get ASCENDING ORDER for MIN-HEAP
+      (OPPOSITE for MAX-heap!)
       TRADEOFF:  DESTROYs data-structure in the process
 
 APPLICATION:
@@ -52,18 +64,10 @@ SOLUTION:
     - at any time, have got k elements in heap!
 
 
-COMPLETE BINARY TREE IMPLEMENTATION serialized into Array: (enables logarithmic performance)
-    - full tree; each level below root has two children, EXCEPT for leaf nodes
-    - representation in random-access sequential storage
-    - NONE @ index 0
-    - any element @ index N
-    - parent @ index N/2
-    - left child @ 2N
-    - right child @ 2N + 1
-
 """
 
 import sys
+import logging
 
 # MIN HEAP implementation
 class BinHeap:
@@ -261,7 +265,9 @@ def main(args):
     try:
         top = eh.delMin()
     except ValueError as e:
-        print e
+        # print e
+        # ATTN:  prints stackTrace!
+        logging.exception(e)
     else:
         print "Popped top with value of:  {0}".format(top)
     finally:
