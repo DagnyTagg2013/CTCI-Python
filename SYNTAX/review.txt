@@ -22,8 +22,10 @@ use as RETURN of multiple args from def someFunction():
 * DICT:
 https://docs.python.org/2/tutorial/datastructures.html
 
-* FUNCTIONS on ITERABLE:
-https://docs.python.org/2/library/functions.html#map
+* FUNCTIONAL programminag and  ITERABLE, LAMBDAs:
+https://docs.python.org/2/library/functions.html]
+http://stackoverflow.com/questions/12264834/what-is-the-difference-for-python-between-lambda-and-regular-function
+http://stackoverflow.com/questions/10345278/understanding-lambda-in-python-and-using-it-to-pass-multiple-arguments
 
 * COLLECTIONS and COMPARABLE:
 http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
@@ -86,19 +88,6 @@ filter(is_even, range(10))
 https://pymotw.com/2/Queue/
 https://www.troyfawkes.com/learn-python-multithreading-queues-basics/
 
-* COMPARATORS
-GOTCHA:  DataItem class implements Comparator<Data> and int compareTo(DataItem other)
-         on PriorityQueue<DataItem>
-
-         HOWEVER, if number of fields considered for comparison differs from equals or hashcode;
-         then implement Comparator function on DataItem and pass that into PriorityQueue
-
-http://javaconceptoftheday.com/java-priorityqueue-example/
-http://stackoverflow.com/questions/4011560/priority-queue-in-java
-http://stackoverflow.com/questions/1168348/java-serialization-readobject-vs-readresolve
-http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
-- see MFACache.py
-
 * COLLECTIONS (challenges)
 https://docs.python.org/2/library/collections.html
 http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
@@ -108,6 +97,27 @@ http://stackoverflow.com/questions/407734/a-generic-priority-queue-for-python
 https://docs.python.org/2.7/library/queue.html#Queue.PriorityQueue
 https://docs.python.org/3/_sources/library/heapq.
 
+* COMPARATORS
+http://javaconceptoftheday.com/java-priorityqueue-example/
+
+GOTCHA:  DataItem class implements Comparator<Data> and int compareTo(DataItem other)
+         on PriorityQueue<DataItem>
+
+         HOWEVER, if number of fields considered for comparison differs from equals or hashcode;
+         then implement Comparator function on DataItem and pass that into PriorityQueue
+
+def __cmp__(self,other):
+    if self.value < other.value:
+        return -1
+    elif self.value > other.value:
+        return 1
+    else:return 0
+
+http://stackoverflow.com/questions/4011560/priority-queue-in-java
+http://stackoverflow.com/questions/1168348/java-serialization-readobject-vs-readresolve
+http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
+- see MFACache.py
+
 # SORT (LIST works OK for BASICs, otherwise not prettiest
 # LIMITATION - has to be primitive integer ordering key
 http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/
@@ -116,10 +126,11 @@ http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python
 itertools
 http://stackoverflow.com/questions/17722989/python-how-do-i-use-itertools
 
-* LAMBDAS
+* LAMBDAs
 # http://stackoverflow.com/questions/890128/why-are-python-lambdas-useful
 # http://stackoverflow.com/questions/29767310/pythons-lambda-with-no-variables
-- MATRIX/Spiraller.
+# http://stackoverflow.com/questions/12264834/what-is-the-difference-for-python-between-lambda-and-regular-function
+- MATRIX/Spiraller
 
 * STRINGS
 SLICE

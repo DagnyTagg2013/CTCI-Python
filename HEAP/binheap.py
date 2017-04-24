@@ -78,10 +78,15 @@ class BinHeap:
     # internal limit on CACHE for HELD items, but PLUS ONE is for 0th element with dummy value of 0
     # _CACHE_LIMIT = 10
 
-    def __init__(self):
+    # ATTN: COMPARE PARAMETERIZATION!
+    # def __init__(self):
+    def __init__(self, compareComplexItemsASCLambda, isMAXdefaultMIN=False):
         # 0th element is dummy placeholder with value 0
         self.heaplist = [0]
         self.currentSize = 0
+        # TODO:  Python FAIL:  no TYPE check Of Function parameter!
+        self.compareComplexItemsASC = compareComplexItemsASCLambda
+        self.isMAXdefaultMIN = isMAXdefaultMIN
         print "DONE with CTOR!"
 
     def printContents(self):
@@ -97,8 +102,13 @@ class BinHeap:
         # to move UP, but STOP once ROOT is reached; or just (prior) to 0th dummy element
         while i // 2 > 0:
             # IFF MIN HEAP property is violated; SWAP child with parent
-             # TODO:  INVERT this comparison for MAX-HEAP
-            if self.heaplist[i] < self.heaplist[i//2]:
+            # if self.heaplist[i] < self.heaplist[i//2]:
+            # TODO: INVERT this comparison for MAX-HEAP
+            # ATTN: COMPARE PARAMETERIZATION!
+            cmpResult = self.compareComplexItemsASC(self.heaplist[i], self.heaplist[i//2])
+            if self.isMAXdefaultMIN:
+                cmpResult *= -1
+            if (cmpResult < 0):
                 tmp = self.heaplist[i // 2]                 # save parent
                 self.heaplist[i // 2] = self.heaplist[i]    # put child in parent's place
                 self.heaplist[i] = tmp                      # swap parent into child's old place
@@ -127,9 +137,15 @@ class BinHeap:
         if (i * 2 + 1) > self.currentSize:
             return i * 2
         else:
-        # TODO:  INVERT this comparison for MAX-HEAP
-        # otherwise, there are two children; and we want to pick the smaller one
-            if (self.heaplist[i*2] < self.heaplist[i*2 + 1]):
+            # TODO:  INVERT this comparison for MAX-HEAP
+            # otherwise, there are two children; and we want to pick the smaller one
+            # if (self.heaplist[i*2] < self.heaplist[i*2 + 1]):
+            # ATTN: COMPARE PARAMETERIZATION!
+            cmpResult = self.compareComplexItemsASC(self.heaplist[i*2], self.heaplist[i*2 + 1])
+            if self.isMAXdefaultMIN:
+                cmpResult *= -1
+
+            if (cmpResult < 0):
                 return i * 2
             else:
                 return i * 2 + 1
@@ -141,9 +157,15 @@ class BinHeap:
         while (i * 2) <= self.currentSize:
             # ATTN:  on perc DOWN, need to swap with minChild!
             minChildIdx = self.__findMinChildIdx__(i)
-            # TODO:  INVERT this comparison for MAX HEAP
+
+            # TODO: INVERT this comparison for MAX HEAP
             # IFF MIN HEAP property is violated; SWAP parent with child
-            if self.heaplist[i] > self.heaplist[minChildIdx]:
+            # if self.heaplist[i] > self.heaplist[minChildIdx]:
+            cmpResult = self.compareComplexItemsASC(self.heaplist[i], self.heaplist[minChildIdx])
+            if self.isMAXdefaultMIN:
+                cmpResult *= -1
+
+            if (cmpResult > 0):
                 tmp = self.heaplist[i]
                 self.heaplist[i] = self.heaplist[minChildIdx]
                 self.heaplist[minChildIdx] = tmp
@@ -207,11 +229,28 @@ class BinHeap:
             self.__percDown__(i)
             i = i - 1
 
-def main(args):
+# *************** PARAMETERIZATION ***************
 
-    # CASE 0:  CTOR
-    print 'ENTERED Main!'
-    bh = BinHeap()
+# TODO:  ATTN, can OVERRIDE this to compare based on ANY logic for COMPLEX data items!
+def compareTo(lhs, rhs):
+    # if (lhs.value < rhs.value):
+    if (lhs < rhs):
+        return -1
+    # elif (lhs.value > rhs.value):
+    elif (lhs > rhs):
+        return 1
+    else:
+        return 0
+
+# ************************************************
+
+def minHeapTestDriver():
+
+    # TODO:  HERE, using DEFAULT MINHEAP funcitonality,
+    # but later OVERRIDE with passing in True as 2nd param to get MAXHEAP!
+    isMAXHeap = False
+    bh = BinHeap(compareTo)
+
     print 'RETURNED from CTOR'
 
     # CASE 1:  INITIALIZE 1
@@ -259,8 +298,13 @@ def main(args):
     print sortedResult
 
     # CASE 5:  Testing BOUNDARY case of deletion from EMPTY Heap
+
+    # TODO:  HERE, using DEFAULT MINHEAP functionality
+    # but later OVERRIDE with passing in True as 2nd param to get MAXHEAP!
+    isMAXHeap = False
+    bh = BinHeap(compareTo)
     print "\nATTEMPT REMOVAL from EMPTY HEAP:  "
-    eh = BinHeap()
+    eh = BinHeap(compareTo)
     eh.printContents()
     try:
         top = eh.delMin()
@@ -273,8 +317,104 @@ def main(args):
     finally:
         print "This concludes testing for the EMPTY HEAP case!"
 
+    # LAMBDA-override parameterization
+    # ATTN:  in case funciton is not multi-line, use this separate def declaration for readability
+    lhs = 5
+    rhs = 10
+    cmp = lambda lhs, rhs: compareTo
+    print "\n\n*** COMPARE RESULT is {}".format(cmp(lhs, rhs))
+
+def maxHeapTestDriver():
+
+    # TODO:  HERE, using DEFAULT MINHEAP functionality,
+    # but later OVERRIDE with passing in True as 2nd param to get MAXHEAP!
+    isMAXHeap = True
+    bh = BinHeap(compareTo, isMAXHeap)
+
+    # CASE 1:  INITIALIZE 1
+    print("\nINCREMENTALLY ADD from 1-4 HEAP CONTENTS")
+    print("ADD 9:")
+    bh.insert(9)
+    bh.printContents()
+    print("ADD 5:")
+    bh.insert(5)
+    bh.printContents()
+    print("ADD 1:")
+    bh.insert(1)
+    bh.printContents()
+    print("ADD 3:")
+    bh.insert(3)
+    bh.printContents()
+
+def main(args):
+
+    print '\n=====> ENTERED Main!\n'
+
+    print '*********** MIN HEAP DRIVER ***************'
+    minHeapTestDriver()
+
+    print '*********** MAX HEAP DRIVER ***************'
+    maxHeapTestDriver()
+
+    print '\n=====> EXITTING Main!\n'
+
 
 # NOTE:  use the following to permit in-module unit-testing!
 # ATTENTION:  main entrypoint, for Python to emulate Java main entrypoint
 if __name__ == '__main__':
     main(sys.argv)
+
+# ********************** EXPECTED RESULTS HERE! ********************************************
+
+"""
+ENTERED Main!
+DONE with CTOR!
+RETURNED from CTOR
+
+INCREMENTALLY ADD from 1-4 HEAP CONTENTS
+ADD 9:
+[0, 9]
+ADD 5:
+[0, 5, 9]
+ADD 1:
+[0, 1, 9, 5]
+ADD 3:
+[0, 1, 3, 5, 9]
+
+BULK-INIT 10-HEAP CONTENTS
+[0, 2, 3, 6, 5, 9, 11, 30, 45, 15, 50]
+
+ADDING ELEMENT 88 to MAX-10 HEAP CACHE
+CACHE BEFORE INSERT:
+[0, 2, 3, 6, 5, 9, 11, 30, 45, 15, 50]
+CACHE AFTER INSERT:
+[0, 2, 3, 6, 5, 9, 11, 30, 45, 15, 50, 88]
+
+HEAP-SORTING VIA REMOVAL OF TOP MIN-ELEMENTS
+HEAP BEFORE SORT:
+[0, 2, 3, 6, 5, 9, 11, 30, 45, 15, 50, 88]
+HEAP AFTER SORT:
+[0]
+HEAP-SORTED RESULT:
+[2, 3, 5, 6, 9, 11, 15, 30, 45, 50, 88]
+DONE with CTOR!
+
+ATTEMPT REMOVAL from EMPTY HEAP:
+DONE with CTOR!
+[0]
+This concludes testing for the EMPTY HEAP case!
+
+
+*** COMPARE RESULT is <function compareTo at 0x1020c9e60>
+ERROR:root:Cannot execute this operation on an Empty Heap
+Traceback (most recent call last):
+  File "/Users/daphneeng/TECH-Practice/ProjectsPython/CTCI/HEAP/binheap.py", line 313, in main
+    top = eh.delMin()
+  File "/Users/daphneeng/TECH-Practice/ProjectsPython/CTCI/HEAP/binheap.py", line 184, in delMin
+    raise ValueError(self.INVALID_OP_FOR_EMPTY_MSG);
+ValueError: Cannot execute this operation on an Empty Heap
+
+Process finished with exit code 0
+"""
+
+
