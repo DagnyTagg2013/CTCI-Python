@@ -1,5 +1,32 @@
 """
 
+ATTN:  THIS code in this file here inspired FIRST-PRINCIPLES from MIT:
+https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/MIT6_006F11_lec04.pdf
+
+TODO:
+
+=> Python Default Support for Heaps here:
+- https://docs.python.org/2/library/queue.html
+??? but SYNCHRONIZED, slower access on single, thread
+AND does not allow parameterization comparison CompareTo
+function as in Java Collections!
+
+=> using heapq from above for MinHeap
+http://quiz.geeksforgeeks.org/binary-heap/
+
+=> Python PriorityQ Support for Heaps here:
+- http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
+??? but NO parameterization of comparison for complex item contents
+    AND can OVERRIDE with tuples having an INTEGER FIRST integer priority
+Sample C - class objects using __cmp__()
+Python isn't strongly typed, so we can save anything we like: just as we stored a tuple of (priority,thing)
+in previous section. We can also store class objects if we override __cmp__() method:
+
+
+=> CONVERT min to MAX heap
+http://www.geeksforgeeks.org/convert-min-heap-to-max-heap/
+
+
 HEAP PROPERTY:  (MIN)
     - for each node X with parent P;
     the key in P is smaller or equal to key in X

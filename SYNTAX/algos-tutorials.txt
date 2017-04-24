@@ -1,6 +1,10 @@
 
-1) http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/
+1) http://www.geeksforgeeks.org/data-structures/
+   http://www.geeksforgeeks.org/greedy-algorithms-set-6-dijkstras-shortest-path-algorithm/
 
 2) https://www.hackerrank.com/domains/tutorials/cracking-the-coding-interview
 
 3) https://github.com/donnemartin/interactive-coding-challenges
+
+4) MIT on Heaps:
+   https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/MIT6_006F11_lec04.pdf
