@@ -2,12 +2,12 @@
 
 1) Python Dict, List, Iterable Functions, Deque, Yield
 
-* LIST: mutable, homogeneous
+* LIST and LIST COMPREHENSIONS: mutable, homogeneous
 http://stackoverflow.com/questions/1708510/python-list-vs-tuple-when-to-use-each
 https://docs.python.org/2/tutorial/datastructures.html
 for i in xrange(start, end, step):
 for i in xrange(MAX_LEN):
-
+*** see FindRectangles.py
 
 GOTCHAs:
 - ALLOCATION
@@ -18,6 +18,7 @@ GOTCHAs:
 - end is ONE-PAST end index specifically
 
 * TUPLE: immutable, heterogeneous
+*** see SortTests.py
 
 atuple[0], atuple[1]
 use as RETURN of multiple args from def someFunction():
@@ -109,7 +110,7 @@ http://stackoverflow.com/questions/132988/is-there-a-difference-between-and-is-i
 
 >>> a = [1, 2, 3]
 >>> b = a
->>> b is a 
+>>> b is a
 True
 >>> b == a
 True
@@ -332,7 +333,7 @@ NAMING conventions
 *  def __repr__(self):
        return "({}:{})".format(self.menu_id, self.cost)
 
-=> see ChooseIceCream.py
+=> see SortTests.py
 
 7) WHAT's GOOD with PYTHON
 
