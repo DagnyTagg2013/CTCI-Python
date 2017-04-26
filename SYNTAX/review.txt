@@ -8,7 +8,10 @@ https://docs.python.org/2/tutorial/datastructures.html
 for i in xrange(start, end, step):
 for i in xrange(MAX_LEN):
 
+
 GOTCHAs:
+- ALLOCATION
+  x = [None] * len(menu)
 - step can be -1 to go BACK
 - xrange generates on-the-fly vs pre-allocation
 - MAX_LEN only means index 0 to MAX_LEN-1
@@ -99,6 +102,7 @@ https://docs.python.org/3/_sources/library/heapq.
 
 * COMPARATORS
 http://javaconceptoftheday.com/java-priorityqueue-example/
+http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
 
 GOTCHA:  DataItem class implements Comparator<Data> and int compareTo(DataItem other)
          on PriorityQueue<DataItem>
@@ -113,6 +117,12 @@ def __cmp__(self,other):
         return 1
     else:return 0
 
+**** KEY POINT:  - Comparator is with LARGE datastructure; which compares successive elements; and can be used for
+                 applying DIFFERENT (non-default) SORT strategies to a COLLECTION
+
+                 - __cmp__ or compareTo is on COMPLEX-NON-PRIMITIVE element to support Ordered Collections;
+                   AND is invoked implictly in Python on doing comparisions within collections!
+
 http://stackoverflow.com/questions/4011560/priority-queue-in-java
 http://stackoverflow.com/questions/1168348/java-serialization-readobject-vs-readresolve
 http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
@@ -121,6 +131,8 @@ http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
 # SORT (LIST works OK for BASICs, otherwise not prettiest
 # LIMITATION - has to be primitive integer ordering key
 http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python/
+https://www.tutorialspoint.com/python/list_sort.htm
+http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
 
 # ITERATORS
 itertools
@@ -130,7 +142,14 @@ http://stackoverflow.com/questions/17722989/python-how-do-i-use-itertools
 # http://stackoverflow.com/questions/890128/why-are-python-lambdas-useful
 # http://stackoverflow.com/questions/29767310/pythons-lambda-with-no-variables
 # http://stackoverflow.com/questions/12264834/what-is-the-difference-for-python-between-lambda-and-regular-function
+
+GOTCHAs:
+* Python has no function return type; and uses
+def xyx():
 - MATRIX/Spiraller
+
+* Python has no parameterization of Function types vs Scala
+- http://alvinalexander.com/scala/passing-function-to-function-argument-anonymous
 
 * STRINGS
 SLICE
@@ -159,6 +178,9 @@ ITERATE:
 http://stackoverflow.com/questions/538346/iterating-over-a-string
 for achar in "somestring":
     # do something with achar
+
+BUILT-IN FUNCTIONS:
+https://docs.python.org/2/library/functions.html
 
 2) EXAMPLESs:
 
@@ -231,6 +253,11 @@ https://docs.python.org/2/tutorial/inputoutput.html
 - Exceptions
 http://stackoverflow.com/questions/8380006/file-open-function-with-try-except-python-2-7-1
 
+* MODULES:
+
+
+
+* 
 
 3) RANDOM
 
@@ -255,7 +282,13 @@ http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python
 
 5) OOP
 
-- no accessors, use __ instead
+- no accessors
+  - use _ for 'convention' of private access
+  - use __ for 'final, non-overrideable' method
+  - use __x__ for Python-internal call, like comparator
+  *** note ANYTHING with _ will NOT get exposed via import from package module designated with __init__.py!
+  http://stackoverflow.com/questions/1301346/what-is-the-meaning-of-a-single-and-a-double-underscore-before-an-object-name
+
 - no implicit this, use EXPLICIT this
 - no ctor, use __init__ and start assigning stuff to this.itemA to inititialize
 
@@ -271,6 +304,15 @@ http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python
 - TYPE and CAST
 * print type(x)
 * int(x)
+
+- FORMAT PRINT
+*  print "{0}:{1}".format(suffix, similarity)
+
+- OBJECT CONTENTS
+*  def __repr__(self):
+       return "({}:{})".format(self.menu_id, self.cost)
+
+=> see ChooseIceCream.py
 
 7) WHAT's GOOD with PYTHON
 

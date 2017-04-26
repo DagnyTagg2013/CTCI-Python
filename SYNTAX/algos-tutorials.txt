@@ -8,3 +8,17 @@
 
 4) MIT on Heaps:
    https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-006-introduction-to-algorithms-fall-2011/lecture-videos/MIT6_006F11_lec04.pdf
+
+5) Python Sorting:
+
+* http://stackoverflow.com/questions/10948920/what-algorithm-does-pythons-sorted-use
+
+* https://www.quora.com/Why-should-one-ever-use-a-heap-instead-of-a-sorted-array
+
+6) Insertion vs Bubble
+
+https://www.quora.com/In-laymans-terms-what-is-the-difference-between-a-bubble-sort-and-an-insert-sort
+
+http://interactivepython.org/courselib/static/pythonds/SortSearch/TheBubbleSort.html#lst-bubble
+
+http://interactivepython.org/courselib/static/pythonds/SortSearch/TheInsertionSort.html

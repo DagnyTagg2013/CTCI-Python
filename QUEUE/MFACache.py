@@ -134,14 +134,13 @@ class MostFrequentlyUsedCache:
 
 # TESTING SCRIPT:
 # - NOTE:  can use EITHER __cmp__ OR getKey methods to OVERRIDE; BUT __cmp__
-#   is MORE extensible in that it support MULTIPLE non-integer field comparison overrides; but getKey() is only used in Sorted API
-# - ALSO NOTE:  heapq is NOT parameterized to __cmp__; and priorityQ is therefore not either as its implemented with heapq;
-#   but it DOES use getKey() and you can just save TUPLE as collection elements with Integer ordering value as first tuple element;
-#   but must use INTEGER key to return from getKey()
+#   is MORE extensible in that it can support MULTIPLE non-integer field comparisons;
+#   but getKey() is only used in Sort API
 # - OPTION 1:  with getKey override:  sorted(self.freqPriorityQ, getKey, True)
 # - OPTION 2:  without getKey override:  sorted(self.freqPriorityQ)
 # - cmp returns < 1 if LHS < RHS; 0 if equal; +1 if LHS > RHS
 
 # TODO:  test REVERSE order with __cmp__ also!
+
 
 
