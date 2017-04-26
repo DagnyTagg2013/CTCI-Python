@@ -111,12 +111,22 @@ class menuItem:
             return 1
     """
     def __cmp__(self, rhs):
-        if (self.cost < rhs.cost):
+        if self.cost < rhs.cost:
             return -1
-        elif (self.cost == rhs.cost):
+        elif self.cost == rhs.cost:
             return 0
         else:
             return 1
+
+    # MAJOR TODO:  handle DUPLICATE index finds when id differs!
+    """
+    def __eq__(self, rhs):
+         if (    (self.cost == rhs.cost)  ):
+             #and (self.menu_id == rhs.menu_id) ):
+             return 1
+         else:
+             return 0
+    """
 
     def __repr__(self):
 
@@ -152,6 +162,7 @@ def binSearch(toFind, data, startIdx, endIdx):
 
     while ((startIdx <= endIdx) and (foundIdx == -1)):
 
+        #ATTN:  have to compare COST number to data subelement!
         if (toFind < data[midIdx].cost):
             # ATTN: iterate one BELOW to NARROW range
             endIdx = midIdx - 1
@@ -196,7 +207,7 @@ def findComplementFlavorsByCost(menu, total):
         #        so cannot START search AFTER current sorted position,
         #        AND it throws an Exception
         #        SO write-proprietary binsearch to simulate Java Arrays.binarySearch
-        # sortedFlavorIndex = menuOrderedByCost.index(complementCost)
+        # sortedFlavorIndex = menuOrderedByCost.index(complementCost, (orderedByCostId + 1), endIdx)
         # TODO:  issue here where binsearch needs PARAMETERIZATION on type to compare objects!
         sortedFlavorIndex = binSearch(complementCost, menuOrderedByCost, (orderedByCostId + 1), endIdx)
         # TODO:  Handle case of -1 where NO complement found
@@ -221,7 +232,16 @@ def findComplementFlavorsByCost(menu, total):
 
 # DRIVER SCRIPT:
 
+
+
 menu = [1, 4, 5, 3, 2]
 total = 4
-print findComplementFlavorsByCost(menu, total)
+
+dir(menu)
+
+print "FINDING INDEX OF VALUE"
+print menu.index(3,1,4)
+# print menu.index(3,4,4)
+
+findComplementFlavorsByCost(menu, total)
 

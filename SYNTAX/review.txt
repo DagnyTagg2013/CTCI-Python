@@ -93,6 +93,7 @@ https://www.troyfawkes.com/learn-python-multithreading-queues-basics/
 
 * COLLECTIONS (challenges)
 https://docs.python.org/2/library/collections.html
+http://stackoverflow.com/questions/5292303/how-does-tuple-comparison-work-in-python
 http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
 http://javaconceptoftheday.com/java-priorityqueue-example/
 http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
@@ -102,7 +103,10 @@ https://docs.python.org/3/_sources/library/heapq.
 
 * COMPARATORS
 http://javaconceptoftheday.com/java-priorityqueue-example/
+http://gerg.ca/blog/post/2012/python-comparison/
+http://stackoverflow.com/questions/5292303/how-does-tuple-comparison-work-in-python
 http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
+
 
 GOTCHA:  DataItem class implements Comparator<Data> and int compareTo(DataItem other)
          on PriorityQueue<DataItem>
@@ -254,10 +258,8 @@ https://docs.python.org/2/tutorial/inputoutput.html
 http://stackoverflow.com/questions/8380006/file-open-function-with-try-except-python-2-7-1
 
 * MODULES:
-
-
-
-* 
+(see __init__.py)
+import from
 
 3) RANDOM
 
@@ -268,7 +270,7 @@ https://www.tutorialspoint.com/python/python_if_else.htm
 * pass (no-op)
 
 
-4) SUCKY LANGUAGE FEATURES; I need HELP with
+4) SUCKY LANGUAGE FEATURES; I need to workaround:
 
 * switch SUCKs, need simulation w Dictionary lambdas
 https://codingair.wordpress.com/2014/02/11/use-python-to-do-switch-case/
@@ -282,7 +284,8 @@ http://pythoncentral.io/how-to-sort-a-list-tuple-or-object-with-sorted-in-python
 
 5) OOP
 
-- no accessors
+NAMING conventions
+- no access level keywords, setters, getters -- all public
   - use _ for 'convention' of private access
   - use __ for 'final, non-overrideable' method
   - use __x__ for Python-internal call, like comparator
