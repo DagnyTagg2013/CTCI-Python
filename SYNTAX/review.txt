@@ -102,17 +102,34 @@ https://docs.python.org/2.7/library/queue.html#Queue.PriorityQueue
 https://docs.python.org/3/_sources/library/heapq.
 
 * COMPARATORS
+
+GOTCHA:  different from JAVA where == is reference; and .equals() is DEEP
+http://stackoverflow.com/questions/132988/is-there-a-difference-between-and-is-in-python
+'is' is reference vs == is DEEP equals
+
+>>> a = [1, 2, 3]
+>>> b = a
+>>> b is a 
+True
+>>> b == a
+True
+>>> b = a[:]
+>>> b is a
+False
+>>> b == a
+True
+
 http://javaconceptoftheday.com/java-priorityqueue-example/
 http://gerg.ca/blog/post/2012/python-comparison/
 http://stackoverflow.com/questions/5292303/how-does-tuple-comparison-work-in-python
 http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
 
 
-GOTCHA:  DataItem class implements Comparator<Data> and int compareTo(DataItem other)
-         on PriorityQueue<DataItem>
+GOTCHA:  DataItem class implements int compareTo(DataItem other)
+         on itself, for NATURAL ordering
 
          HOWEVER, if number of fields considered for comparison differs from equals or hashcode;
-         then implement Comparator function on DataItem and pass that into PriorityQueue
+         then implement Comparator function on DataItem and pass that into PriorityQueue collection SORT
 
 def __cmp__(self,other):
     if self.value < other.value:
@@ -122,10 +139,10 @@ def __cmp__(self,other):
     else:return 0
 
 **** KEY POINT:  - Comparator is with LARGE datastructure; which compares successive elements; and can be used for
-                 applying DIFFERENT (non-default) SORT strategies to a COLLECTION
+                 applying DIFFERENT (non-default) SORT strategies to an item collection COLLECTION
 
                  - __cmp__ or compareTo is on COMPLEX-NON-PRIMITIVE element to support Ordered Collections;
-                   AND is invoked implictly in Python on doing comparisions within collections!
+                   AND is invoked implictly in Python; can also be simulated with field-by-field
 
 http://stackoverflow.com/questions/4011560/priority-queue-in-java
 http://stackoverflow.com/questions/1168348/java-serialization-readobject-vs-readresolve
