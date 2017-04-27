@@ -5,6 +5,7 @@
 * LIST and LIST COMPREHENSIONS: mutable, homogeneous
 http://stackoverflow.com/questions/1708510/python-list-vs-tuple-when-to-use-each
 https://docs.python.org/2/tutorial/datastructures.html
+*** PREFER xrange dynamic generation to pre-allocation of full range!
 for i in xrange(start, end, step):
 for i in xrange(MAX_LEN):
 *** see FindRectangles.py
@@ -243,6 +244,7 @@ GOTCHA:
 .get(key,defaultVal) or KeyError if key not found
 - BuildTree
 
+
 * LIST COMPREHENSIONS, TUPLES:
 - FindRectangles
 
@@ -344,3 +346,8 @@ NAMING conventions
 - go thru ALL of the DP folder examples!
 
 - stackCubes.py, sumIntegers.py, MakeMinChange.py etc
+
+9) PERFORMANCE MEASUREMENT!
+
+- append() vs extend()
+- http://stackoverflow.com/questions/14446128/python-append-vs-extend-efficiency
