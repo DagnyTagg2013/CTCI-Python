@@ -205,7 +205,7 @@ for achar in "somestring":
 BUILT-IN FUNCTIONS:
 https://docs.python.org/2/library/functions.html
 
-2) EXAMPLESs:
+2) EXAMPLES:
 
 * STRINGS
 

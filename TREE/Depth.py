@@ -27,7 +27,7 @@ class Node:
 #   4   5
 #
 
-# ATTN: assume FULL BINARY TREE (not SEARCH-TREE) and order LEFT before RIGHT!
+# ATTN: assume FULL BINARY TREE (not SEARCH-TREE) and order LEFT before RIGHT in BFS!
 treeData  = [None,1,2,3,4,5]
 
 def loadTree(treeData):
@@ -46,7 +46,7 @@ def loadTree(treeData):
         levelRoot.left = Node(treeData[scanIdx])
         scanIdx += 1
         levelRoot.right = Node(treeData[scanIdx])
-        # ADD children nodes to Q to navigate to NEXT sub-level of EACH node correctly
+        # ATTN:  ADD children nodes to FIFO Q to navigate to NEXT sub-level of EACH node correctly
         bfsQ.append(levelRoot.left)
         bfsQ.append(levelRoot.right)
 
@@ -54,9 +54,9 @@ def loadTree(treeData):
 
 treeRoot = loadTree(treeData)
 
-
-# TODO:  Depth-First Tree Traversal with STACK
-def rPrintContents(currNode):
+# ATTN:  DFS Tree Traversal w Stack!
+"""
+def printContents(currNode):
 
     if currNode is None:
         print "None\n"
@@ -66,12 +66,38 @@ def rPrintContents(currNode):
         print '{0}'.format(currNode.key)
 
     if currNode.left is not None:
-       rPrintContents(currNode.left)
+        printContents(currNode.left)
 
     if currNode.right is not None:
-       rPrintContents(currNode.right)
+        printContents(currNode.right)
+"""
 
-rPrintContents(treeRoot)
+def printContents(currNode):
+
+    dfsStack = deque()
+    dfsStack.append(currNode)
+
+    # test the Q not empty!
+    while (dfsStack):
+
+        # ATTN:  gets NEXT node in FIFO DFS order to traverse!
+        currNode = dfsStack.pop()
+
+        if currNode is None:
+            print "None\n"
+
+        if currNode is not None:
+            print '{0}'.format(currNode.key)
+
+        # ATTN:  stores  nodes for next-level traversal; take LEFT last, then pops LEFT first
+        if currNode.right is not None:
+            dfsStack.append(currNode.right)
+
+        if currNode.left is not None:
+            dfsStack.append(currNode.left)
+
+print "TREE CONTENTS:"
+printContents(treeRoot)
 
 def minDepth(root):
 

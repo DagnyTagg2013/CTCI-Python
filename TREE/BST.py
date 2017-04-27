@@ -1,6 +1,5 @@
 
-# TODOs:
-# - get depth
+# KEY POINT:  RECURSION OK if LIMITED, and NON-OVERLAPPING!
 
 # ORIGINAL TREE:
 #      2
@@ -135,6 +134,8 @@ class BST:
 
         self.head = self._rinsert_(self.head, key, value)
 
+    # ATTN:  recursive OK with non-overlapping calls of narrowing scope; but DFS with Stack saves on stack frames
+    """
     # ATTN:  Print BST Contents
     def _rPrintContents_(self, currNode):
 
@@ -150,10 +151,33 @@ class BST:
 
         if currNode.right is not None:
             self._rPrintContents_(currNode.right)
+    """
 
     def printContents(self):
 
-        self._rPrintContents_(self.head)
+        dfsStack = deque()
+        dfsStack.append(self.head)
+
+        # test the Q not empty!
+        while (dfsStack):
+
+            # ATTN:  gets NEXT node in FIFO DFS order to traverse!
+            currNode = dfsStack.pop()
+
+            if currNode is None:
+                print "None\n"
+
+            if currNode is not None:
+                print '{0}'.format(currNode.key)
+
+            # ATTN:  stores  nodes for next-level traversal; take LEFT last, so pops LEFT first on output!
+            if currNode.right is not None:
+                dfsStack.append(currNode.right)
+
+            if currNode.left is not None:
+                dfsStack.append(currNode.left)
+
+
 
     # ATTN: what's in queue at any time is NEXT in Z-TRACE BFS traversal
     def bfs(self):
@@ -195,11 +219,13 @@ class BST:
             currNode = stack.pop()
             print "{0:1}, ".format(currNode.key, currNode.value)
 
+            # ATTN:  stores  nodes for next-level traversal; take LEFT last, so pops LEFT first on output!
+            if (currNode.right is not None):
+                stack.append(currNode.right)
+
             if (currNode.left is not None):
                 stack.append(currNode.left)
 
-            if (currNode.right is not None):
-                stack.append(currNode.right)
 
     # ATTN:  PUBLIC, non-recursive call with HEAD!
     def serialize(self, sentinel = '#'):

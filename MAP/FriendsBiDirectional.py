@@ -1,6 +1,30 @@
 __author__ = 'dagny t'
 
 """
+
+APPROACH:
+- scan employees into dictionary-map keyed by empId
+- scan in friends links, and accumulate to the above
+- scan in friends links again; but REVERSE the lookup in the other direction, to accumulate to the above
+
+*** NOT SURE:  check complexities below on what to count!
+
+TIME-COMPLEXITY:
+O(M) + O(N)
+- scan in Employees => DRIVER as can have None links for friendships!
+- 2 x scan in Friends links for each direction (N)
+- O(1) to lookup elements for association
+HOWEVER N can equal Mexp2 in WORST case where each friend is friends with ALL other members!
+
+SPACE-COMPLEXITY:
+O(M) + O(N)
+- scan in Employees (M)
+- scan in Friends links (N
+HOWEVER N can equal Mexp2 in WORST case where each friend is friends with ALL other members!)
+
+"""
+
+"""
 def say_hello():
     print 'Hello, World'
 """
