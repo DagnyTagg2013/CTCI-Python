@@ -14,13 +14,13 @@ O(M) + O(N)
 - scan in Employees => DRIVER as can have None links for friendships!
 - 2 x scan in Friends links for each direction (N)
 - O(1) to lookup elements for association
-HOWEVER N can equal Mexp2 in WORST case where each friend is friends with ALL other members!
+HOWEVER N can equal Mexp2 in WORST case where each friend is friends with ALL other employees!
 
 SPACE-COMPLEXITY:
 O(M) + O(N)
 - scan in Employees (M)
-- scan in Friends links (N
-HOWEVER N can equal Mexp2 in WORST case where each friend is friends with ALL other members!)
+- scan in Friends links (N)
+HOWEVER N can be as large as Mexp2 in WORST case where each friend is friends with ALL other employees!
 
 """
 
