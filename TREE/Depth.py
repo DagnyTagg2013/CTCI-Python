@@ -30,6 +30,10 @@ class Node:
 # ATTN: assume FULL BINARY TREE (not SEARCH-TREE) and order LEFT before RIGHT in BFS!
 treeData  = [None,1,2,3,4,5]
 
+# ATTN: OK to do recursion here as non-overlapping
+# ATTN: check EMPTY and one-node case!
+# ATTN: take MAX, then ADD one!
+
 def loadTree(treeData):
 
     bfsQ = deque()
@@ -99,44 +103,51 @@ def printContents(currNode):
 print "TREE CONTENTS:"
 printContents(treeRoot)
 
-def minDepth(root):
+# TRICK:  check None, recur OTHER side and add one for current level
+def minDepth(node):
 
-    # Corner Case.Should never be hit unless the code is
-    # called on root = NULL
-    if root is None:
+    # ATTN: EMPTY CASE
+    if node is None:
         return 0
 
-    # Base Case : Leaf node.This acoounts for height = 1
-    if root.left is None and root.right is None:
+    # ATTN:  ROOT case
+    if node.left is None and node.right is None:
         return 1
 
     # If left subtree is Null, recur for right subtree
-    if root.left is None:
-        return minDepth(root.right)+1
+    if node.left is None:
+        return minDepth(node.right)+1
 
     # If right subtree is Null , recur for left subtree
-    if root.right is None:
-        return minDepth(root.left) +1
+    if node.right is None:
+        return minDepth(node.left) +1
 
-    return min(minDepth(root.left), minDepth(root.right))+1
+    return min(minDepth(node.left), minDepth(node.right))+1
 
 print "MIN Depth is:  {}".format(minDepth(treeRoot))
 
+
+# TRICK:  check None, recur OTHER side and add one for current level
 # Compute the "maxDepth" of a tree -- the number of nodes
 # along the longest path from the root node down to the
 # farthest leaf node
 def maxDepth(node):
 
+    # ATTN: EMPTY CASE
     if node is None:
-        return 0 ;
+        return 0
 
-    else :
+    # ATTN:  ROOT only case
+    if node.left is None and node.right is None:
+        return 1
+
+    else:
 
         # Compute the depth of each subtree
         lDepth = maxDepth(node.left)
         rDepth = maxDepth(node.right)
 
-        # Use the larger one
+        # ATTN:  use the larger one, then add for current level
         if (lDepth > rDepth):
             return lDepth+1
         else:
