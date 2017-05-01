@@ -9,7 +9,7 @@ from random import randint
 # put(key, val) O(1)
 # get(key) -> val (or None) O(1)
 
-# Test Cases added during chat
+# Test Cases added during chat, with get cases after put cases
 """
 testCache = Cache(3)
 testCache.put("A", 1)
@@ -27,33 +27,47 @@ print testCache.get("D")
 
 *** What I should have asked early on to help to clarify; as coding to initial PUT cases threw me off because of below (I did ask about Eviction policy)"
 
-"Here's what I was thinking to do with an ALGO and DATA STRUCTURES to solve this problem that would make the most sense to me in a realistic situation,
-but I don't know if you may be thinking of any data structure or policy simplification for the purposes of this interview exercise that you'd be happier with."
+"Here's what I was thinking to do with an ALGO and DATA STRUCTURES to solve this problem
+that would make the most sense to me in a real-world situation,
+but I don't know if you may be thinking of any simplifications in data structure or policy
+for the purposes of this interview exercise that you'd be happier with.
+In which case; please specify."
 
-* What use-cases would you care about most (first)?  Would you like me to start those; or would you like to specify those first?
-* I'm going to put comments/or tests for the key cases that I will code below; and you can let me know if this is along the lines you're looking for
+* What use-cases would you care about most (first)?  Would you like me to start those;
+  or would you like me to start specifying those first?
+* I'm going to put comments/or tests for the key cases that I will code below;
+  then you can let me know if this is along the lines you're looking for
 
 * MAJOR POINTs to clarify
 
-- EXTERNAL, PUBLIC CLIENT interface vs PRIVATE INTERNAL SERVER-driven interface and INTERNAL cache implementation
+- DECOUPLED interfaces on INTERMEDIARY CACHE implementation (CLIENT or SERVER)
+  - PUBLIC CLIENT interface
+  - PRIVATE INTERNAL SERVER-driven interface
   eg Typically, a Cache Client should only care about GET functionality,
-     where the internal implementation handles insert of fresh/new items into the internal cache data structure
-     from a FETCH to DEEPer resource (e.g. DB, or even remote Server)
+     wheras an internal Server-facing implementation handles insert of fresh/new items into the internal cache data structure
+     via a FETCH to DEEPer resource (e.g. DB, or even remote Server)
 
-- EVICTION policy
+- UPDATE policy (SERVER driven)
+  eg This is typically driver SERVER-side; and DE-COUPLED from Client-side intermediary Cache interface
+  - EVENT-DRIVEN:  item-based PUSH of each resource ELEMENT based on latest-written items from DEEPER DB,
+                   with auto-increment monotonically increasing versionSequenceID.  This ID is used on Cache implementation
+                   for Idempotency to only update on message with new increasing version ID.
+  - TIMED-BATCH DRIVEN:  PERIODIC-batch-pull of latest-written items from DEEPer DB
+
+- EVICTION policy (CLIENT-driven, USUALLY)
   eg there are important key distinctions which affect data structure choices and approach such as:
      Last Recently WRITTEN vs
      Last Recently READ    vs
      Most Frequently READ
 
 * MINOR POINTs to clarify
-
-- What were the Types for Lookup Keys and then Values that we'd want?  (ie Array by int Key OK; or Dict needed)
-- What were the Types for Priority metric that we want?
+- What were the Types for Lookup Keys VS Resource Values that we'd want?  (ie Array by int Key OK; or Dict needed)
+- What were the Types for Priority metric that we want? (ie. TimeSequenceID, RequestFrequencyCount, WriteVersionSequenceID, etc)
+- What were the Types for handling Idempotency for Data Version Updates (ie. WriteVersionSequenceID, etc)
 
 - MAJOR DISTINCTION within JAVA; where one can do Last-Recently-WRITTEN Cache via LinkedHashMap and removeEldestEntry(...)
 http://stackoverflow.com/questions/224868/easy-simple-to-use-lru-cache-in-java
-HOWEVER, is NOT the same as the more pragmatic real-world polic of Last Recently READ
+HOWEVER, is NOT the same as the more pragmatic real-world policies that are CLIENT-driven (as above)
 
 """
 #
@@ -146,6 +160,7 @@ class SimpleCache:
         self.deepDataSource = self.__DougAdamsGenerator()
 
     # TODO:  breakout into SEPARATE Server-side Interface
+    # TODO:  also support one-off Event-Driven data update with Idempotency check on WriteVersionSequenceID
     def batchRefresh(self):
 
        # INTERVIEW PUNT:  simulate CACHE REFRESH Driven SERVER-side;
