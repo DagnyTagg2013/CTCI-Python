@@ -9,7 +9,7 @@ from random import randint
 # put(key, val) O(1)
 # get(key) -> val (or None) O(1)
 
-# Test Cases added during chat, with get cases after put cases
+# Test Cases added during chat, with GET cases added after PUT cases
 """
 testCache = Cache(3)
 testCache.put("A", 1)
@@ -25,77 +25,116 @@ print testCache.get("D")
 
 """
 
-*** What I should have asked early on to help to clarify; as coding to initial PUT cases threw me off because of below (I did ask about Eviction policy)"
+*** What I could have asked early on to help to clarify;
 
 "Here's what I was thinking to do with an ALGO and DATA STRUCTURES to solve this problem
 that would make the most sense to me in a real-world situation,
-but I don't know if you may be thinking of any simplifications in data structure or policy
+but I don't know if you may be thinking of any simplifications in data structures or algo
 for the purposes of this interview exercise that you'd be happier with.
 In which case; please specify."
 
-* What use-cases would you care about most (first)?  Would you like me to start those;
-  or would you like me to start specifying those first?
+* What test-cases/use-cases would you care about most (first)?
+  Would you like me to start those;
+  or would you like to start specifying those first?
 * I'm going to put comments/or tests for the key cases that I will code below;
-  then you can let me know if this is along the lines you're looking for
+  then you can let me know if this is along the lines you're looking for in this interview
 
-* MAJOR POINTs to clarify
+A) MAJOR POINTs to clarify
 
-- DECOUPLED interfaces on INTERMEDIARY CACHE implementation (CLIENT or SERVER)
-  - PUBLIC CLIENT interface
-  - PRIVATE INTERNAL SERVER-driven interface
-  eg Typically, a Cache Client should only care about GET functionality,
-     wheras an internal Server-facing implementation handles insert of fresh/new items into the internal cache data structure
-     via a FETCH to DEEPer resource (e.g. DB, or even remote Server)
+1) DECOUPLED interfaces on INTERMEDIARY CACHE implementation (between CLIENT and Data SERVER)
+   eg1 PUBLIC CLIENT interface (CLIENT-driven GET, usually)
+   eg2  PRIVATE INTERNAL (SERVER-driven PUT, usually)
 
-- UPDATE policy (SERVER driven)
-  eg This is typically driver SERVER-side; and DE-COUPLED from Client-side intermediary Cache interface
-  - EVENT-DRIVEN:  item-based PUSH of each resource ELEMENT based on latest-written items from DEEPER DB,
-                   with auto-increment monotonically increasing versionSequenceID.  This ID is used on Cache implementation
-                   for Idempotency to only update on message with new increasing version ID.
-  - TIMED-BATCH DRIVEN:  PERIODIC-batch-pull of latest-written items from DEEPer DB
+   ie Typically, a Cache Client should only care about GET functionality,
+      whereas an internal Server-facing implementation handles insert of fresh/new items into the internal cache data structure
+    via a FETCH to DEEPer resource (e.g. DB, or even remote Server)
 
-- EVICTION policy (CLIENT-driven, USUALLY)
-  eg there are important key distinctions which affect data structure choices and approach such as:
-     Last Recently WRITTEN vs
-     Last Recently READ    vs
-     Most Frequently READ
+2) UPDATE/PUT policy (SERVER driven, USUALLY)
 
-* MINOR POINTs to clarify
-- What were the Types for Lookup Keys VS Resource Values that we'd want?  (ie Array by int Key OK; or Dict needed)
-- What were the Types for Priority metric that we want? (ie. TimeSequenceID, RequestFrequencyCount, WriteVersionSequenceID, etc)
-- What were the Types for handling Idempotency for Data Version Updates (ie. WriteVersionSequenceID, etc)
+  This is typically driven SERVER-side; and DE-COUPLED from Client-side cache interface interface
+  eg1 EVENT-DRIVEN:  item-based PUSH of each resource ELEMENT based on latest-written items from DEEPER DB,
+                     with auto-increment monotonically increasing versionSequenceID.  This ID is used on Cache implementation
+                     for Idempotency to only update on message with new increasing version ID.
+  eg2 TIMED-BATCH DRIVEN:  PERIODIC-batch-pull of latest-written items from DEEPer DB,
+                           OK to assume ALWAYs gets latest-state
 
-- MAJOR DISTINCTION within JAVA; where one can do Last-Recently-WRITTEN Cache via LinkedHashMap and removeEldestEntry(...)
+3) EVICTION policy on GET (CLIENT-driven, USUALLY)
+
+  ie there are important key distinctions which affect data structure choices and approach such as:
+  eg1 Last Recently WRITTEN
+      http://katrinaeg.com/lru-cache.html
+  eg2 Last Recently READ
+  eg3 Most Frequently READ
+
+4) TIME-COMPLEXITY order of operations indicating Data Structures to use
+
+  https://wiki.python.org/moin/TimeComplexity
+  http://stackoverflow.com/questions/6256983/how-are-deques-in-python-implemented-and-when-are-they-worse-than-lists
+
+  * need a FIFO Queue to (prioritize) Data to Evict (RETAIN on front; EVICT from end)
+    - remove from middle, or find-remove
+    - remove from end
+    - add to front
+    eg1 Array:  O(n)/O(1 + n)/O(n) as have to shift over items in contiguous memory
+        List:   O(n)/O(1 + n)/O(n) as have to track next-prior where get() works in constant time in Python
+                http://stackoverflow.com/questions/37350450/why-is-a-list-access-o1-in-python
+        Deque:  O(n)/O(1)/O(1) where pop() and appendleft() work in constant time in Python
+        heapq or PriorityQ:  O(1)/O(logN)/O(1) where delMin() works in constant time, insert() in O(logN) time
+                 https://docs.python.org/2/library/queue.html
+
+    **** NOTE: SORT for BinHeap/PriorityQ uses DEFAULT Python DEEP Comparison of TUPLE with (Priority, Data)
+
+  * Need a NODE entity with RESOURCE data,
+                       and PRIORITY (timeSequenceID for READ, accessCount for READ, timeSequenceID for WRITE)
+
+  * Need a Lookup Map from KEY to NODE to easily FIND resource data by Client Lookup Key to Cache with
+
+5) MINOR POINTs to clarify
+eg1 What were the Types for Lookup Keys VS Resource Values that we'd want?  (ie Array by int Key OK; or Dict needed)
+eg2 What were the Types for Priority metric that we want? (ie. ReadTimeSequenceID, RequestFrequencyCount, WriteVersionSequenceID, etc)
+eg3  What were the Types for handling Idempotency for Data Version Updates (ie. WriteVersionSequenceID, etc)
+
+6) LANGUAGE-SPECIFIC tricks
+
+eg1 JAVA; where one can do Last-Recently-WRITTEN Cache via LinkedHashMap and removeEldestEntry(...)
 http://stackoverflow.com/questions/224868/easy-simple-to-use-lru-cache-in-java
-HOWEVER, is NOT the same as the more pragmatic real-world policies that are CLIENT-driven (as above)
+HOWEVER, this is NOT the the same as the more pragmatic real-world policies that are CLIENT-driven (as above)
+
+TODO:  lookup CIRCULAR DEQUE implementation below
+TODO:  implement LRU cache as below
+eg2 Python3; where one can use DQUEUE, circular
+http://katrinaeg.com/lru-cache.html
+http://www.geeksforgeeks.org/implement-lru-cache/
 
 """
 #
 # ***** SO,  MAJOR INTERVIEW PUNT on EVICTION POLICY *****
 
-# - so as not having to SORT FIFO PriorityQ content (for List in O(N); or for BinHeap in O(logN) implementations backing PriorityQ abstraction),
-# PUNT on eviction policy to most RECENTLY WRITTEN LIFO @currSize index to avoid Performance Hit!
+# - so as not having to SORT FIFO PriorityQ content (for List in O(N);
+# or for BinHeap in O(logN) implementations backing PriorityQ abstraction),
+# PUNT on eviction policy to most RECENTLY WRITTEN FIFO @currSize index to avoid Performance Hit!
 
 # (vs) in REAL-WORLD cases
 # - typically only GET functionality exposed on a public interface; and not PUT
 #   since retrieval of data for cache occurs within the internal implementation, and via
 #   a fetch from a deeper resource (like DB or even remote location)
 # - typically eviction priority logic is handled with LIFO Priority Q (NOT FIFO Stack) to:
-# EVICT from low-priority side; and INSERT-with-SORT on High Priority Side
-# -- so you RETAIN elements you most care about on LOWER Priority.
+#   EVICT from END or Low-priority side;
+#   and INSERT at BEGIN -with-SORT on High Priority Side
+# -- so you RETAIN elements you most care about on HIGHER Priority.
 
 # eg1 RETAIN Most Frequently Accessed:
 #    - keep count of access frequency on PriorityNode, with Lookup Key to Resource
 #      then keep MIN BinHeap to EVICT in O(1) the least frequently accessed;
-#      while adding in O(logN) the new element with access frequency count of 0
+#      while adding in O(logN) the new element with access frequency count of 0 to START
 
 # ex2 RETAIN Most Recently Accessed:
 #    - keep timestamp on PriorityNode, with Lookup Key to Resource
 #      then keep MIN BinHeap to EVICT in O(1) the item with lowest timeSEQUENCE;
 #      while adding in O(logN) new elements of higher timeSEQUENCE closest to the CURRENT time
 
-# - typically INSERT new Item along with RE-SORT in PriorityQ after each ADD or REMOVE of Element into PriorityQ and associated Lookup Hash Dict!
-
+# - typically INSERT new Item along with RE-SORT in PriorityQ after each ADD or REMOVE of Element
+#   into PriorityQ AND update associated Lookup Hash Dict!
 
 
 """
@@ -124,7 +163,7 @@ HOWEVER, is NOT the same as the more pragmatic real-world policies that are CLIE
     #           pass
 
     # (common to all cases 2.1, 2.2)
-    # - go add new resource into the internal Dictionary cache by key
+    # - go update/insert new resource into the internal Dictionary cached by key
     # - go insert/re-sort PriorityQ by Priority metrics associated with above
     # - return the resource from Cached Dict if found
 
@@ -154,7 +193,7 @@ class SimpleCache:
         # print self.lookupDict
         # print self.priorityQ
 
-        # INTERVIEW PUNT:  simulator for EXTERNAL DEEP DATA SOURCE; or a funciton which HOLDs State, can ITERATE on-fly without
+        # INTERVIEW PUNT:  simulator for EXTERNAL DEEP DATA SOURCE; or a function which HOLDs State, can ITERATE on-fly without
         #                  preallocation like xrange
         # https://www.youtube.com/watch?v=bD05uGo_sVI
         self.deepDataSource = self.__DougAdamsGenerator()
