@@ -165,7 +165,8 @@ https://en.wikipedia.org/wiki/Cache_replacement_policies
     #           - free lookup dependent cache and Q references and FREE them to avoid Memory Leaks
     #
     # CASE 2.2: count < MAX
-    #           pass
+    #           - increase cacheSize
+    #
 
     # (common to all cases 2.1, 2.2)
     # - go update/insert new resource into the internal Dictionary cached by key
@@ -189,11 +190,13 @@ class SimpleCache:
     def __initialLoad(self):
 
         # INTERVIEW PUNT:  simulate initial cache load of DEFAULT data from DEEPER data source; LESS than MAX
-        self.lookupDict = { "A":1,
-                            "B":2}
+        self.lookupDict["A"] = 1
+        self.lookupDict["B"] = 2
 
         self.priorityQ[0] = "A"
         self.priorityQ[1] = "B"
+
+        self.currentCacheSize = 2
 
         # print self.lookupDict
         # print self.priorityQ
@@ -230,7 +233,7 @@ class SimpleCache:
     def get(self, key):
 
         alreadyExistResource = self.lookupDict.get(key, None)
-        currentCacheSize = len(self.lookupDict)
+        self.currentCacheSize = len(self.lookupDict)
 
         # CASE 1.0: found in Cache
         if (alreadyExistResource is not None):
@@ -245,11 +248,14 @@ class SimpleCache:
             # INTERVIEW PUNT:  fetch resource from DEEPER location; like DB or Remote Server
             # deepFetchedResource = deepResource
             deepFetchedResource = next(self.deepDataSource)
-
             # TODO:  THROW EXCEPTION or return NONE if STILL NOT FOUND from DEEPER DATA SOURCE!
 
+            # for BOTH cases 2.1, 2.2; we want to ADD to PriorityQ, and set value in lookupDict!
+            # INTERVIEW PUNT:  DO NOTHING to update PriorityQ node for Read ACCESS, and RE-ORDER
+            # INSTEAD:  LIFO PUNT to keep O(1) without shuffling priorityQ based on LAST WRITTEN Priority
+
             # CASE 2.1:  Cache Full
-            if (currentCacheSize == self.MAX_ITEMS):
+            if (self.currentCacheSize == self.MAX_ITEMS):
 
                 # INTERVIEW PUNT:  evict most recently WRITTEN (not necessarily READ) LIFO
                 # MAJOR POINT! ==> FREE DANGLING object REFERENCES to prevent Memory Leaks!
@@ -261,23 +267,22 @@ class SimpleCache:
                 oldResource = self.lookupDict[oldResourceKey]
                 self.lookupDict[oldResourceKey] = None
                 del(self.lookupDict[oldResourceKey])
-                currentCacheSize -= 1
-                # free associated priorityQ reference
-                self.priorityQ[(self.MAX_ITEMS - 1)] = None
+                # DO NOT modify currentCacheSize; as REPLACING items!
+                # free associated priorityQ reference prior to setting it again!
+                self.priorityQ[(self.currentCacheSize - 1)] = None
+                self.priorityQ[(self.currentCacheSize - 1)] = key
 
             # CASE 2.2: Cache Not Full
             else:
-
-                # defer to shared processing for general Case 2.0
+                # defer to shared processing for general Case 2.
+                self.currentCacheSize += 1
+                self.priorityQ[self.currentCacheSize - 1] = key
                 pass
 
-            # for BOTH cases 2.1, 2.2; we want to ADD to PriorityQ, and lookupDict!
-            # INTERVIEW PUNT:  DO NOTHING to update PriorityQ node for Read ACCESS, and RE-ORDER
-            # INSTEAD:  LIFO PUNT to keep O(1) without shuffling priorityQ based on LAST WRITTEN Priority
-            self.lookupDict[key] = deepFetchedResource
-            self.priorityQ[currentCacheSize] = key
 
-        # 2.0
+            self.lookupDict[key] = deepFetchedResource
+
+
         return self.lookupDict[key]
 
         # should never get here
@@ -289,30 +294,36 @@ print "\n***** STARTING TEST SCRIPT *****\n"
 testCache = SimpleCache(3)
 print "IMMEDIATELY AFTER CTOR:"
 print "\nEXPECT A, B loaded, with None space in Cache"
+print "Size: {}".format(testCache.currentCacheSize)
 print testCache
 
 r1 = testCache.get("A")
 print "\nEXPECT A returned resource"
 print "Resource for A:  {}".format(r1)
+print "Size: {}".format(testCache.currentCacheSize)
 print testCache
 
 r2 = testCache.get("B")
 print "\nEXPECT B returned resource"
 print "Resource for B:  {}".format(r2)
+print "Size: {}".format(testCache.currentCacheSize)
 print testCache
 
 r3 = testCache.get("C")
 print "\nEXPECT C deep-fetched"
 print "Resource for C:  {}".format(r3)
+print "Size: {}".format(testCache.currentCacheSize)
 print testCache
 
 r4 = testCache.get("D")
 print "\nEXPECT C evicted, D deep-fetched"
 print "Resource for D:  {}".format(r4)
+print "Size: {}".format(testCache.currentCacheSize)
 print testCache
 
 testCache.batchRefresh()
 r5 = testCache.get("A")
 print "\nEXPECT A with UPDATED data"
 print "Resource for A:  {}".format(r5)
+print "Size: {}".format(testCache.currentCacheSize)
 print testCache
