@@ -1,4 +1,19 @@
-import logging
+import copy
+
+"""
+
+SORTING TAKEAWAYS for COMPARISON:  compare(self,rhs) on ITEM or compare(lhs, rhs) on COLLECTION;
+                                   RETURNs -1 when LHS < RHS, 0 when equal, +1 when LHS > RHS
+- use TUPLE comparisons as proxy-substitute for having to code field-by-field comparison WITHIN INTERNAL __cmp__
+eg http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
+- use INTERNAL __cmp__ on ELEMENT Class to do NATURAL ASCENDING order comparison on ALL fields of Element,
+  and is applied on List.sort() for example; ALSO can pass in getKey function somehow ...
+eg SORT/SortTests.py
+- use EXTERNAL sort function (defined and passed as a Lambda variable) on COLLECTION Class to do CUSTOM order comparision on SELECTED fields of Element,
+  or to SWITCH-UP NATURAL ascending order by differing sort order precedence of the fields, and the like!
+eg /HEAP/binheap.py
+
+"""
 
 """
 
@@ -33,6 +48,23 @@ http://stackoverflow.com/questions/2612802/how-to-clone-or-copy-a-list
 - list find item in
 # http://stackoverflow.com/questions/176918/finding-the-index-of-an-item-given-a-list-containing-it-in-python
 
+5) COLLECTIONS and TUPLE vs CMP comparison overrides!
+
+https://docs.python.org/2/library/collections.html
+http://stackoverflow.com/questions/5292303/how-does-tuple-comparison-work-in-python
+http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
+http://javaconceptoftheday.com/java-priorityqueue-example/
+http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
+http://stackoverflow.com/questions/407734/a-generic-priority-queue-for-python
+https://docs.python.org/2.7/library/queue.html#Queue.PriorityQueue
+https://docs.python.org/3/_sources/library/heapq.
+
+"""
+
+"""
+
+PROBLEM SOLVING APPROACHES
+
 APPROACH 1:
 - START with MAP of ICE-CREAM flavor => cost;
   then want to calc TOTAL - cost = MATCH complement cost
@@ -59,13 +91,11 @@ NOTE: if trying to get complement flavor menu item index; must allow parameter t
 - NOW RETURN to ORIGINAL Menu to use "indexOf" to FIND actual Menu flavor index corresponding to the complement cost;
 since we need to 'reverse-engineer' that flavor location index!
 
-
 SORTING HOW-TO:
 
 sorted(iterable[, cmp[, key[, reverse]]])
 - NOTE:  cmp is SLOWER since it hits 2 elements at a time instead of 1 each via getKey()
 - https://docs.python.org/2/howto/sorting.html#sortinghowto
-
 
 """
 
@@ -97,7 +127,7 @@ class menuItem:
 
     # TODO:  SUPPORTs NATURAL ordering based on ALL fields
     #        but can override per-class, or apply via lhs,rhs to larger collection structure
-    #        with __cmp__(lhs, rhs); BUT then less efficient call over all overlapping adjacent pair elements!
+    #        with __cmp__(lhs, rhs); BUT then less efficient to call over all overlapping adjacent pair elements!
     #
     # def __cmp__(self, rhs):
     # def compareByCosts(lhs, rhs):

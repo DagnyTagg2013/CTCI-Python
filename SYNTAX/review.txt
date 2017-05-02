@@ -32,10 +32,6 @@ https://docs.python.org/2/library/functions.html]
 http://stackoverflow.com/questions/12264834/what-is-the-difference-for-python-between-lambda-and-regular-function
 http://stackoverflow.com/questions/10345278/understanding-lambda-in-python-and-using-it-to-pass-multiple-arguments
 
-* COLLECTIONS and COMPARABLE:
-http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
-http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
-
 * DEQUE:
 https://docs.python.org/2/library/collections.html#collections.deque
 - double-link makes REMOVE faster as no prior-pointer tracking needed
@@ -88,12 +84,20 @@ filter(is_even, range(10))
 [x for x in range(10) if is_even(x)]
 [0, 2, 4, 6, 8]
 
+* DEEP COPY vs SHALLOW
+- shallow vs deepcopy
+https://docs.python.org/2/library/copy.html
+http://stackoverflow.com/questions/2612802/how-to-clone-or-copy-a-list
+- list find item in
+# http://stackoverflow.com/questions/176918/finding-the-index-of-an-item-given-a-list-containing-it-in-python
 
 * CONCURRENCY
 https://pymotw.com/2/Queue/
 https://www.troyfawkes.com/learn-python-multithreading-queues-basics/
 
-* COLLECTIONS (challenges)
+* COLLECTIONS/COMPARISONs
+http://stackoverflow.com/questions/11215851/python-equivalent-of-javas-compareto
+http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
 https://docs.python.org/2/library/collections.html
 http://stackoverflow.com/questions/5292303/how-does-tuple-comparison-work-in-python
 http://stackoverflow.com/questions/7803121/in-python-heapq-heapify-doesnt-take-cmp-or-key-functions-as-arguments-like-sor
@@ -102,6 +106,9 @@ http://www.bogotobogo.com/python/python_PriorityQueue_heapq_Data_Structure.php
 http://stackoverflow.com/questions/407734/a-generic-priority-queue-for-python
 https://docs.python.org/2.7/library/queue.html#Queue.PriorityQueue
 https://docs.python.org/3/_sources/library/heapq.
+
+
+
 
 * COMPARATORS
 
@@ -351,3 +358,4 @@ NAMING conventions
 
 - append() vs extend()
 - http://stackoverflow.com/questions/14446128/python-append-vs-extend-efficiency
+

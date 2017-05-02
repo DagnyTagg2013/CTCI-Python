@@ -1,6 +1,7 @@
 import logging
 
-# Iterative Binary Search
+# Iterative Binary
+# - ASSUMES data are ORDERED within SEQUENTIAL ARRAY
 # - deconstructed to WHILE loop; updating EITHER end or start to midIdx
 # - DEFAULT foundIdx to -1
 # ATTN:  distinction between

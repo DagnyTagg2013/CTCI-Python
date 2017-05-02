@@ -9,7 +9,7 @@ __author__ = 'dagny t'
 # KEY DATA STRUCTURES:  Priority Node by NumHits,
 #                       Dictionary cache by URL to full Node to quickly update NumHits,
 #                       Queue ordered with Most Frequent at FRONT, and Least Frequent NEW values at END to allow for easy eviction
-# KEY ALGO:  need to update priority and SORTED POSITIOn in queue EACH time collection changes sohmehow
+# KEY ALGO:  need to update priority and SORTED POSITION in queue EACH time collection changes sohmehow
 # TODO:  use deque collection! with MOST FREQUENT ACCESSED on one side, LEAST FREQUENT ACCESSED on ANOTHER
 # - https://docs.python.org/2/library/collections.html#collections.deque
 # TODO:  OR use Priority Queue collection => this reduces time to FIND LEAST frequently used, as based on HEAP!

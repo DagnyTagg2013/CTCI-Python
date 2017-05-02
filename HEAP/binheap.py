@@ -279,7 +279,7 @@ def compareTo(lhs, rhs):
 
 def minHeapTestDriver():
 
-    # TODO:  HERE, using DEFAULT MINHEAP funcitonality,
+    # TODO:  HERE, using DEFAULT MINHEAP functionality,
     # but later OVERRIDE with passing in True as 2nd param to get MAXHEAP!
     isMAXHeap = False
     bh = BinHeap(compareTo)
