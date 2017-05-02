@@ -36,6 +36,7 @@ In which case; please specify."
 * What test-cases/use-cases would you care about most (first)?
   Would you like me to start those;
   or would you like to start specifying those first?
+
 * I'm going to put comments/or tests for the key cases that I will code below;
   then you can let me know if this is along the lines you're looking for in this interview
 
@@ -106,19 +107,23 @@ eg2 Python3; where one can use DQUEUE, circular
 http://katrinaeg.com/lru-cache.html
 http://www.geeksforgeeks.org/implement-lru-cache/
 
+7) DEEPER CACHE-REPLACEMENT POLICIES
+
+https://en.wikipedia.org/wiki/Cache_replacement_policies
+
 """
 #
 # ***** SO,  MAJOR INTERVIEW PUNT on EVICTION POLICY *****
 
 # - so as not having to SORT FIFO PriorityQ content (for List in O(N);
 # or for BinHeap in O(logN) implementations backing PriorityQ abstraction),
-# PUNT on eviction policy to most RECENTLY WRITTEN FIFO @currSize index to avoid Performance Hit!
+# PUNT on eviction policy to most RECENTLY WRITTEN LIFO @currSize index to avoid Performance Hit!
 
 # (vs) in REAL-WORLD cases
 # - typically only GET functionality exposed on a public interface; and not PUT
 #   since retrieval of data for cache occurs within the internal implementation, and via
 #   a fetch from a deeper resource (like DB or even remote location)
-# - typically eviction priority logic is handled with LIFO Priority Q (NOT FIFO Stack) to:
+# - typically eviction priority logic is handled with FIFO Priority Q (NOT LIFO Stack) to:
 #   EVICT from END or Low-priority side;
 #   and INSERT at BEGIN -with-SORT on High Priority Side
 # -- so you RETAIN elements you most care about on HIGHER Priority.
@@ -230,8 +235,8 @@ class SimpleCache:
         # CASE 1.0: found in Cache
         if (alreadyExistResource is not None):
 
-            # INTERVIEW PUNT:  DO NOTHING to update PriorityQ node for Read ACCESS; and RE-ORDER
-            # FIFO PUNT to keep O(1) without shuffling priorityQ based on LAST WRITTEN Priority
+            # INTERVIEW PUNT:  DO NOTHING to update PriorityQ node for Read ACCESS; and RE-ORDER,
+            # LIFO PUNT to keep O(1) (without) shuffling priorityQ based on LAST WRITTEN Priority
             return alreadyExistResource
 
         # CASE 2.0: not found in Cache
@@ -246,7 +251,7 @@ class SimpleCache:
             # CASE 2.1:  Cache Full
             if (currentCacheSize == self.MAX_ITEMS):
 
-                # INTERVIEW PUNT:  evict most recently WRITTEN (not necessarily READ) FIFO
+                # INTERVIEW PUNT:  evict most recently WRITTEN (not necessarily READ) LIFO
                 # MAJOR POINT! ==> FREE DANGLING object REFERENCES to prevent Memory Leaks!
                 #              ==> FREEs the old resource somehow,
                 #                  by allowing runtime to handle compaction of dereferenced resource;
@@ -267,8 +272,8 @@ class SimpleCache:
                 pass
 
             # for BOTH cases 2.1, 2.2; we want to ADD to PriorityQ, and lookupDict!
-            # INTERVIEW PUNT:  DO NOTHING to update PriorityQ node for Read ACCESS; and RE-ORDER
-            # FIFO PUNT to keep O(1) without shuffling priorityQ based on LAST WRITTEN Priority
+            # INTERVIEW PUNT:  DO NOTHING to update PriorityQ node for Read ACCESS, and RE-ORDER
+            # INSTEAD:  LIFO PUNT to keep O(1) without shuffling priorityQ based on LAST WRITTEN Priority
             self.lookupDict[key] = deepFetchedResource
             self.priorityQ[currentCacheSize] = key
 
