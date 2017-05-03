@@ -10,27 +10,35 @@ __author__ = 'dagnyt'
 #       https://en.wikipedia.org/wiki/Circular_buffer#Full_.2F_Empty_Buffer_Distinction
 #
 
-# TRICKIEST:  Differentiate between FULL vs EMPTY
+# TRICKIEST:  - Differentiate between FULL vs EMPTY  (ie FRONT==REAR could mean FULL or EMPTY)
 #             http://stackoverflow.com/questions/17239317/circular-queue-without-wasting-an-entry-or-using-counter
-#
+#             https://en.wikipedia.org/wiki/Circular_buffer#Full_.2F_Empty_Buffer_Distinction
+#             * avoid counter as one more thing to coordinate
+#             * use SENTINEL value
+#             - FRONT points to first Node; and SENTINEL->next is FRONT
+#             - END points to next Node to write new data into (one past last node of actual data); and END->next is SENTINEL
+#             * EMPTY is when FRONT == REAR of SENTINdEL value
+#             * FULL is when FRONT is NOT SENTINEL value;  REAR->next->next is FRONT
 
 """
 
 KEY INTERFACE OPERATIONS/BOUNDARY CONDITIONS
 
 1) APPEND (to END)
-   - check if FULL; and can either throw Exception, or release thread then
+   - check if FULL; and can either throw Exception, Return Error Code, or release thread then
      release Lock/wait()/capture Lock when notified/while loop to retest condition
 
 2) REMOVE (from FRONT)
-   - check if EMPTY; and can either throw Exception, or release thread then
+   - check if EMPTY; and can either throw Exception, Return Error Code, or release thread then
      release Lock/wait()/capture Lock when notified/while loop to retest condition
 
 3) HANDLE EMPTY case
+   -
 
-4) HANDLE ONE-NODE case
+4) HANDLE N-NODE case
+   -
 
-5) HANDLE N-NODE case
+5) HANDLE FULL case
 
 """
 
@@ -38,11 +46,8 @@ KEY INTERFACE OPERATIONS/BOUNDARY CONDITIONS
 OPTIMAL:
 - one element is "sentinel" element, separating HEAD and END elements of Queue;
   then you don't have to waste cycles checking every instance of updating currentCount
-- use of Deque to support insert-delete easily without having to track 'prev' pointer
-
+- use of Deque with Node having Prev/Next pointers to support insert-delete easily without having to track 'prev' pointer
 """
-
-""""""
 
 """
     TODO:
@@ -82,16 +87,9 @@ class CircleQ:
         else:
             return False
 
-    def __findNodeToInsertAfter(self, valueToInsert):
+    def __isFull(self):
 
-        prevToInsertAfter = None
-        scanPtr = self.HEAD
-
-        while (scanPtr.data <= valueToInsert):
-            prevToInsertAfter = scanPtr
-            scanPtr = scanPtr.next
-
-        return prevToInsertAfter
+        pass
 
 
     def appendToEnd(self, data):
