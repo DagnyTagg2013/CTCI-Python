@@ -11,7 +11,7 @@ def binSearch(toFind, data, startIdx, endIdx):
 
     # ATTN:  EMPTY is special case
     if (data is None) or (len(data) == 0):
-        raise
+        raise BaseException
 
     # ATTN:  use DELTA/2
     midIdx = startIdx + (endIdx - startIdx)/2
@@ -49,6 +49,6 @@ try:
     print found1b
 
 
-except Exception, ex:
+except BaseException, ex:
 
     logging.exception(ex)
