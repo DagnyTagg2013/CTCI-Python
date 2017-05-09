@@ -108,8 +108,6 @@ https://docs.python.org/2.7/library/queue.html#Queue.PriorityQueue
 https://docs.python.org/3/_sources/library/heapq.
 
 
-
-
 * COMPARATORS
 
 GOTCHA:  different from JAVA where == is reference; and .equals() is DEEP
