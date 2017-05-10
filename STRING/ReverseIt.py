@@ -115,3 +115,8 @@ test5 = "the quick brown fox"
 print test5
 rev5 = revSentence(test5, reverseOneStringByIdx, ' ')
 print rev5
+
+# AAAND, in REAL-LIFE, do the FOLLOWING
+print 'Python Slicing!'
+rev6 = test5[::-1]
+print rev6
