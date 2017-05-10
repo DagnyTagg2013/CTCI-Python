@@ -21,9 +21,13 @@
 
 """
     ATTN:
-    * Java supports SINGLE-interface model -- allows MULTIPLE interface inheritance for COMPOSITION IMPLEMENTATION; or members of class supporting interface
-    * Python supports MULTIPLE-interface model -- allows only classes or abstract base classes; NOT interfaces
-                                                  CAN have EITHER PURE abstract ABC meta classes simulating interfaces; OR partial-implementation abstract!
+    * Java supports SINGLE-interface model --
+    allows MULTIPLE interface inheritance for COMPOSITION IMPLEMENTATION; or members of class supporting BROAD class-wide interface
+    * Python supports MULTIPLE-interface model --
+    allows only classes or abstract base classes; NOT interfaces
+    can have EITHER PURE abstract ABC meta classes simulating interfaces;
+    OR DISJOINT-VERTICAL-SLICE-implementation abstract WITH dependent data members
+    * CAN SELECT WHICH class via super(SELECTED-SUPERCLASS, self)....
 
 """
 
@@ -106,6 +110,25 @@ class Student(Person, IStudent, PartierMixin, StudierMixin):
 
         return avg
 
+    def getGrade(self, oneAvg):
+
+        oneClassGrade = None
+
+        if (oneAvg < 40):
+            oneClassGrade = 'T'
+        elif 40 <= oneAvg < 55:
+            oneClassGrade = 'D'
+        elif 55 <= oneAvg < 70:
+            oneClassGrade = 'P'
+        elif 70 <= oneAvg < 80:
+            oneClassGrade = 'A'
+        elif 80 <= oneAvg < 90:
+            oneClassGrade = 'E'
+        elif 90 <= oneAvg <= 100:
+            oneClassGrade = 'O'
+
+        return oneClassGrade
+
     def __repr__(self):
 
         return "STUDENT Info:\n{0}\n{1}\nAVG:  {2}".format(self.firstName, self.lastName, self.calculateAverage())
@@ -122,18 +145,22 @@ class Student(Person, IStudent, PartierMixin, StudierMixin):
 scores = [90, 70]
 me = Student(777, 'Dagny', 'Tag', scores)
 
-# invokes SUB class calculation based on SUPER class data
-avg = me.calculateAverage()
-
 # invokes __repr__
 print me
 
-# tests return avg
-print
+# invokes SUB class calculation based on SUPER class data
+avg = me.calculateAverage()
+print avg
+
+grade = me.getGrade(avg)
+print grade
 
 # ctor hits from SUB to SUPER, supporting SUPER pure abstract class
 me.traceInheritance()
 
 # call to DISJOINT vertical-slice MIXIN
 # ATTN:  ORDER overriding precedence from Class LEFT to RIGHT!
+# ALSO:  if DIAMOND, can use super(BASE, self).xxx to RESOLVE WHICH one to call
 me.chat()
+
+
