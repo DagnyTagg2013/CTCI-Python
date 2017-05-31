@@ -1,4 +1,6 @@
 
+import logging
+
 # Reversing Linked List!
 class Node:
 
@@ -6,6 +8,13 @@ class Node:
         self.value = value
         # ATTN:  to RESERVED syntax hilite!
         self.nextPtr = None
+
+    def __repr__(self):
+        if (self is not None):
+            status = "Value and Next Ptr:  {0}, {1}".format(self.value, self.nextPtr)
+        else:
+            status = "None"
+        return status
 
 class List:
 
@@ -35,20 +44,61 @@ class List:
 
         scanPtr = self.front
         while (scanPtr is not None):
-            if (scanPtr == value):
+            if (scanPtr.value == value):
                 foundPtr = scanPtr
+                break
+            scanPtr = scanPtr.nextPtr
+
+        if (foundPtr is not None):
+            return foundPtr.value
+        else:
+            return None
+
+
+    # ATTN:  lookbak needs tracking!
+    def remove(self, item):
+
+        lookbak = None
+        scanPtr = self.front
+        foundPtr = None
+
+        while (scanPtr is not None):
+            if (scanPtr.value == item):
+                foundPtr = scanPtr
+                break
+            #ATTN:  track lookbak ptr!
+            lookbak = scanPtr
+            scanPtr = scanPtr.nextPtr
+
+        # print "FOUND and BAK:  {0}:{1}", foundPtr, lookbak
+
+        # CASE 1:  NOT FOUND
+        if (scanPtr is None) and (foundPtr is None):
+            foundPtr = None
+
+        # CASE 2:  FOUND, first item of list
+        elif (lookbak is None) and (foundPtr == self.front):
+            # ATTN:  unlink the FRONT
+            self.front = foundPtr.nextPtr
+            foundPtr.nextPtr = None
+
+        # CASE 3, 4: FOUND, middle item of list; or last item of list
+        elif (lookbak is not None):
+            # ATTN:  UNLINK foundPtr via lookback to found.next connection!
+            lookbak.nextPtr = foundPtr.nextPtr
+            foundPtr.nextPtr = None
+            # ATTN:  update END
+            if (foundPtr == self.end):
+                self.end = lookbak
 
         return foundPtr
-
-
-    def remove(self):
-        pass
 
     def display(self):
 
         print '\nLIST CONTENTS:  '
 
         curr = self.front
+        # ATTN:  end at None!
         while (curr is not None):
             print curr.value
             # ATTN: iterate ptr or INFINITE LOOP -- DOH!
@@ -83,17 +133,14 @@ class List:
             lookbak = curr
             curr = lookfwd
 
-
-
-
-
 # DRIVER
 
 print 'CASE0:  EMPTY LIST'
-list1 = List()
-list1.display()      # ATTN: UPDATE LATEST STATE REF POINTERS!
+list0 = List()
+list0.display()      # ATTN: UPDATE LATEST STATE REF POINTERS!
 
 print 'CASE1:  ONE-ITEM LIST'
+list1 = List()
 list1.append(1)
 list1.display()
 
@@ -106,15 +153,71 @@ print 'CASE3:  REVERSE LIST'
 list1.reverse()      # ATTN: UPDATE LATEST STATE REF POINTERS!
 list1.display()
 
-print 'CASE0:  REVERSE EMPTY LIST'
-list2 = List()
-list2.reverse()
-list2.display()
+print 'CASE4:  REVERSE EMPTY LIST'
+list0.reverse()
+list0.display()
 
-print 'CASE 4:  REVERSE one-element List!'
+print 'CASE 5:  REVERSE one-element List!'
 list3 = List()
 list3.append(5)
 list3.reverse()
 list3.display()
 
-# TODO:  test REMOVE and FIND!
+print 'CASE6:  FIND in Empty, 1-element, 3-element List'
+
+found51 = list0.find(5)
+# None
+print found51
+
+found52 = list3.find(5)
+# 5
+print found52
+
+found53 = list3.find(4)
+# None
+print found53
+
+found54 = list1.find(2)
+# 2
+print found54
+
+print '\nCASE7:  REMOVE from Empty, 1-element, 3-element list MID, 3-element List END'
+
+try:
+
+    print "\n7.1\n"
+    # list0.display()
+    del71 = list0.remove(5)
+    # None
+    print del71
+
+    print "\n7.2\n"
+    del72 = list3.remove(5)
+    #5
+    print del72
+
+    print "\n7.3\n"
+    del73 = list1.remove(2)
+    # 2
+    print del73
+
+    print "\n7.4\n"
+    del74 = list1.remove(3)
+    # 3
+    print del74
+
+    print "\n7.5\n"
+    del75 = list1.remove(1)
+    # 1
+    print del75
+
+except Exception as ex:
+
+    # logging.info('YIKES!', exc_info=True)
+    logging.exception("YIKES!")
+
+finally:
+
+    'GRACEFUL EXIT?!'
+
+
